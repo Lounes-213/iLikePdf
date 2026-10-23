@@ -33,7 +33,7 @@ let session: Session | null = readSession();
 const listeners = new Set<() => void>();
 
 export function isAuthConfigured(): boolean {
-  return WORKER_URL.length > 0;
+  return WORKER_URL.length > 0 && googleClientId().length > 0;
 }
 
 export function googleClientId(): string {

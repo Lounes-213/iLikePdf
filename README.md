@@ -27,6 +27,15 @@ iLikePdf is a complete PDF workstation: a React + TypeScript front end, a Spring
 - **Your interface, your language** — 40+ locales, full dark/light theming, orange brand identity.
 - **Accounts and tokens (optional)** — Google sign-in, a shared token ledger in Cloudflare D1, and top-ups through Stripe or PayPal.
 
+## Live demo
+
+| Surface | URL |
+| --- | --- |
+| App | https://ilikepdf-app.ilikepdf.workers.dev |
+| Landing page | https://ilikepdf-site.ilikepdf.workers.dev |
+
+The app is served from Cloudflare Workers static assets and calls a Spring Boot backend through a Cloudflare tunnel while that machine is running. Rebuild the front end (`VITE_API_BASE_URL=<backend>`) and redeploy `cloudflare/app-worker` when the backend URL changes.
+
 ## Quick start
 
 Requirements: **JDK 25** (Gradle downloads it automatically) and Node.js 20+.
@@ -65,7 +74,7 @@ Token packs and prices live in `cloudflare/auth-worker/src/index.ts`; the ledger
 
 Without the Worker URL the app stays fully offline: no sign-in, no metering, no external calls.
 
-The static landing page in `site/` deploys to Cloudflare Pages:
+The static landing page in `site/` can also deploy to Cloudflare Pages:
 
 ```bash
 npx wrangler pages deploy site --project-name ilikepdf

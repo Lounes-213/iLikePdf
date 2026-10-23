@@ -319,3 +319,7 @@ docs/type3/signatures/
 # Local screenshot artifacts from *-screenshots.spec.ts
 frontend/screenshots/
 frontend/src-tauri/libs/.variant
+
+# wrangler local state
+.wrangler/
+

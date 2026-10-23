@@ -137,7 +137,9 @@ async function signInWithGoogle(request: Request, env: Env): Promise<Response> {
   const credential = body?.credential;
   if (!credential) return json({ error: "Missing Google credential" }, 400);
 
-  const profile = await verifyGoogleIdToken(credential, env.GOOGLE_CLIENT_ID);
+  const profile = await verifyGoogleIdToken(credential, env.GOOGLE_CLIENT_ID).catch((error: unknown) => {
+    throw new HttpError(401, error instanceof Error ? error.message : "Invalid Google credential");
+  });
   const now = new Date().toISOString();
   const userId = crypto.randomUUID();
   const freeTokens = Number(env.FREE_TOKENS ?? "50");

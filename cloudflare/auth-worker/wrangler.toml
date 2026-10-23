@@ -6,11 +6,11 @@ workers_dev = true
 [[d1_databases]]
 binding = "DB"
 database_name = "ilikepdf"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "928e2eb8-e784-4d5f-9d04-63f46bc044e5"
 
 [vars]
-APP_ORIGIN = "http://localhost:5173"
-ALLOWED_ORIGINS = "http://localhost:5173"
+APP_ORIGIN = "https://ilikepdf-app.ilikepdf.workers.dev"
+ALLOWED_ORIGINS = "http://localhost:5173,https://ilikepdf-app.ilikepdf.workers.dev,https://ilikepdf-c89.pages.dev,https://ilikepdf-app.pages.dev"
 GOOGLE_CLIENT_ID = "REPLACE_WITH_GOOGLE_WEB_CLIENT_ID"
 PAYPAL_MODE = "sandbox"
 TOOL_COST = "1"
