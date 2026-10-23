@@ -1179,7 +1179,7 @@ public class ApplicationProperties {
                                         "Logout from the provider "
                                                 + registrationId
                                                 + " is not supported. Report it at"
-                                                + " https://github.com/Stirling-Tools/Stirling-PDF/issues");
+                                                + " https://github.com/Lounes-213/iLikePdf/issues");
                     };
                 }
             }

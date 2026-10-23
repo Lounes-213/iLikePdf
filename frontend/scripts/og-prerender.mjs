@@ -10,7 +10,7 @@ import path from "node:path";
 const SITE_NAME = "Stirling PDF";
 const APP_SUFFIX = ` - ${SITE_NAME}`;
 // Public project home - a safe, verifiable sameAs signal for structured data.
-const GITHUB_URL = "https://github.com/Stirling-Tools/Stirling-PDF";
+const GITHUB_URL = "https://github.com/Lounes-213/iLikePdf";
 const LOGO_PATH = "/modern-logo/logo512.png";
 
 export const escapeHtml = (value) =>

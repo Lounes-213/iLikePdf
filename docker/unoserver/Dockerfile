@@ -137,6 +137,6 @@ ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 
 LABEL org.opencontainers.image.title="Stirling-PDF Unoserver" \
       org.opencontainers.image.description="Pinned unoserver build for Stirling-PDF remote UNO mode" \
-      org.opencontainers.image.source="https://github.com/Stirling-Tools/Stirling-PDF" \
+      org.opencontainers.image.source="https://github.com/Lounes-213/iLikePdf" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="Stirling-Tools"

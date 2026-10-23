@@ -74,7 +74,7 @@ ARG VERSION_TAG
 # Labels
 LABEL org.opencontainers.image.title="Stirling-PDF Ultra-Lite" \
       org.opencontainers.image.description="Stirling-PDF with embedded frontend - Ultra-lite version with minimal dependencies" \
-      org.opencontainers.image.source="https://github.com/Stirling-Tools/Stirling-PDF" \
+      org.opencontainers.image.source="https://github.com/Lounes-213/iLikePdf" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="Stirling-Tools" \
       org.opencontainers.image.url="https://www.stirlingpdf.com" \

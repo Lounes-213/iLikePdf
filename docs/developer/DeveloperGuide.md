@@ -68,7 +68,7 @@ These are not required to run the app but enable specific features. The app dete
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Stirling-Tools/Stirling-PDF.git
+   git clone https://github.com/Lounes-213/iLikePdf.git
    cd Stirling-PDF
    ```
 
@@ -396,7 +396,7 @@ Important notes:
 
 6. Push your changes to your fork.
 7. Submit a pull request to the main repository.
-8. See additional [contributing guidelines](https://github.com/Stirling-Tools/Stirling-PDF/blob/main/.github/CONTRIBUTING.md).
+8. See additional [contributing guidelines](https://github.com/Lounes-213/iLikePdf/blob/main/.github/CONTRIBUTING.md).
 
 When you raise a PR:
 

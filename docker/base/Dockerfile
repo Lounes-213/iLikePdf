@@ -701,7 +701,7 @@ RUN set -eux; \
 # Metadata labels - base image
 LABEL org.opencontainers.image.title="Stirling-PDF Base" \
       org.opencontainers.image.description="Pre-built base image with Calibre, Ghostscript, QPDF, ImageMagick, LibreOffice, OCRmyPDF and dependencies" \
-      org.opencontainers.image.source="https://github.com/Stirling-Tools/Stirling-PDF" \
+      org.opencontainers.image.source="https://github.com/Lounes-213/iLikePdf" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="Stirling-Tools" \
       org.opencontainers.image.url="https://www.stirlingpdf.com" \

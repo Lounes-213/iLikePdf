@@ -348,7 +348,7 @@ def release_jar(version, directory):
     jar = directory / f"stirling-pdf-{version}.jar"
     if not jar.is_file():
         log(f"Downloading historical release {version}")
-        url = f"https://github.com/Stirling-Tools/Stirling-PDF/releases/download/{version}/Stirling-PDF-with-login.jar"
+        url = f"https://github.com/Lounes-213/iLikePdf/releases/download/{version}/Stirling-PDF-with-login.jar"
         partial = jar.with_suffix(".jar.part")
         with (
             urllib.request.urlopen(url, timeout=120) as response,

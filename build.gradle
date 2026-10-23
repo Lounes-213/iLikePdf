@@ -636,7 +636,7 @@ spotless {
 
 sonar {
     properties {
-        property "sonar.projectKey", "Stirling-Tools_Stirling-PDF"
+        property "sonar.projectKey", "Lounes-213_iLikePdf"
         property "sonar.organization", "stirling-tools"
 
         property "sonar.exclusions", "**/build-wrapper-dump.json, **/src/main/java/org/apache/**, **/src/main/resources/static/pdfjs/**, **/src/main/resources/static/js/thirdParty/**"

@@ -11,7 +11,7 @@ provides=('stirling-pdf-server')
 conflicts=('stirling-pdf-server' 'stirling-pdf-server-git')
 backup=('etc/stirling-pdf-server/settings.yml')
 
-source=("Stirling-PDF-with-login-${pkgver}.jar::https://github.com/Stirling-Tools/Stirling-PDF/releases/download/v${pkgver}/Stirling-PDF-with-login.jar")
+source=("Stirling-PDF-with-login-${pkgver}.jar::https://github.com/Lounes-213/iLikePdf/releases/download/v${pkgver}/Stirling-PDF-with-login.jar")
 sha256sums=('PLACEHOLDER_JAR_SHA256')
 
 package() {
@@ -63,7 +63,7 @@ EOF
     install -dm755 "${pkgdir}/etc/stirling-pdf-server"
     install -Dm644 /dev/stdin "${pkgdir}/etc/stirling-pdf-server/settings.yml" << 'EOF'
 # Stirling-PDF Server configuration
-# See https://github.com/Stirling-Tools/Stirling-PDF for all options
+# See https://github.com/Lounes-213/iLikePdf for all options
 server:
   port: 8080
 EOF
@@ -72,6 +72,6 @@ EOF
     install -Dm644 /dev/stdin "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE" << 'EOF'
 MIT License with proprietary carve-outs (open-core).
 SPDX: MIT AND LicenseRef-Stirling-PDF-Proprietary
-See https://github.com/Stirling-Tools/Stirling-PDF/blob/main/LICENSE
+See https://github.com/Lounes-213/iLikePdf/blob/main/LICENSE
 EOF
 }

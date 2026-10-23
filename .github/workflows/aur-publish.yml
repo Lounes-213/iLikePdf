@@ -49,7 +49,7 @@ jobs:
         env:
           VERSION: ${{ steps.info.outputs.version }}
         run: |
-          BASE="https://github.com/Stirling-Tools/Stirling-PDF/releases/download/v${VERSION}"
+          BASE="https://github.com/Lounes-213/iLikePdf/releases/download/v${VERSION}"
 
           download_sha256() {
             local url="$1"

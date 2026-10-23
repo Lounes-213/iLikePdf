@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling.png" width="80" alt="Stirling PDF logo">
+  <img src="https://raw.githubusercontent.com/Lounes-213/iLikePdf/main/docs/stirling.png" width="80" alt="Stirling PDF logo">
 </p>
 
 <h1 align="center">Stirling PDF - The Open-Source PDF Platform</h1>
@@ -54,7 +54,7 @@ For full installation options (including desktop and Kubernetes), see our [Docum
 ## Support
 
 - **Community**: [Discord](https://discord.gg/HYmhKj45pU)
-- **Bug Reports**: [GitHub Issues](https://github.com/Stirling-Tools/Stirling-PDF/issues)
+- **Bug Reports**: [GitHub Issues](https://github.com/Lounes-213/iLikePdf/issues)
 
 ## Contributing
 

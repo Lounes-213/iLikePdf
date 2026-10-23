@@ -536,7 +536,7 @@ def step_pdf_has_qr_split_marker(context, page_num):
         )
     reader = PdfReader(context.file_name)
     qr = _qrcode.QRCode(box_size=4, border=2)
-    qr.add_data("https://github.com/Stirling-Tools/Stirling-PDF")
+    qr.add_data("https://github.com/Lounes-213/iLikePdf")
     qr.make(fit=True)
     qr_img = qr.make_image(fill_color="black", back_color="white")
     qr_bytes = io.BytesIO()

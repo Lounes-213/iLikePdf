@@ -385,7 +385,7 @@ function checkLicenseCompatibility(licenseSummary, licenseArray) {
     "MPL-2.0",
     "CC-BY-4.0",
     "OFL-1.1",
-    "SEE LICENSE IN https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/refs/heads/main/proprietary/LICENSE",
+    "SEE LICENSE IN https://raw.githubusercontent.com/Lounes-213/iLikePdf/refs/heads/main/proprietary/LICENSE",
     "SEE LICENSE IN LICENSE https://github.com/PostHog/posthog-js/blob/main/LICENSE",
   ]);
 
