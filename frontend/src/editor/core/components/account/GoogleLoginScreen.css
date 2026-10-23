@@ -1,0 +1,80 @@
+.google-login {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at 18% -10%, rgb(249 115 22 / 20%), transparent 55%),
+    radial-gradient(circle at 88% 110%, rgb(234 88 12 / 14%), transparent 55%),
+    var(--c-bg);
+  overflow: auto;
+}
+
+.google-login__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: min(26rem, 100%);
+  padding: 2.4rem 2rem 1.9rem;
+  text-align: center;
+  border: 1px solid var(--c-border);
+  border-radius: 1.25rem;
+  background: var(--c-surface);
+  box-shadow: 0 28px 70px rgb(0 0 0 / 40%);
+  animation: google-login-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes google-login-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.google-login__mark {
+  color: var(--c-brand-mark);
+  margin-bottom: 0.15rem;
+}
+
+.google-login__card h1 {
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+}
+
+.google-login__lede {
+  color: var(--c-text-muted);
+  font-size: 0.92rem;
+  max-width: 30ch;
+}
+
+.google-login__button {
+  min-height: 44px;
+  margin-top: 0.35rem;
+}
+
+.google-login__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--c-text-subtle);
+}
+
+.google-login__foot {
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+  width: 100%;
+  border-top: 1px solid var(--c-border-subtle);
+  color: var(--c-text-muted);
+  font-size: 0.78rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-login__card {
+    animation: none;
+  }
+}

@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@app/ui/Button";
 import { Modal } from "@app/ui/Modal";
+import { useGoogleButton } from "@app/components/account/useGoogleButton";
 import {
   consumePurchaseResult,
   getSession,
   getTokenPacks,
-  googleClientId,
   isAuthConfigured,
   refreshUser,
   resumePaypalCapture,
-  signInWithGoogle,
   signOut,
   startPaypalCheckout,
   startStripeCheckout,
@@ -19,21 +18,6 @@ import {
   type TokenPack,
 } from "@app/services/authWorker";
 import "@app/components/account/AccountWidget.css";
-
-interface GoogleCredentialResponse {
-  credential?: string;
-}
-
-interface GoogleIdentity {
-  initialize(config: { client_id: string; callback: (response: GoogleCredentialResponse) => void }): void;
-  renderButton(parent: HTMLElement, options: Record<string, unknown>): void;
-}
-
-declare global {
-  interface Window {
-    google?: { accounts: { id: GoogleIdentity } };
-  }
-}
 
 type Notice = { tone: "ok" | "error"; message: string } | null;
 
@@ -221,51 +205,7 @@ function SignedIn({
 
 function GoogleSignIn({ onSignedIn, onError }: { onSignedIn: () => void; onError: (message: string) => void }) {
   const { t } = useTranslation();
-  const container = useRef<HTMLDivElement>(null);
-  const callbacks = useRef({ onSignedIn, onError });
-  callbacks.current = { onSignedIn, onError };
-  const [ready, setReady] = useState(false);
-  const clientId = googleClientId();
-
-  useEffect(() => {
-    if (!clientId) return;
-    let cancelled = false;
-
-    loadGoogleIdentity()
-      .then(() => {
-        if (cancelled || !container.current || !window.google) return;
-        window.google.accounts.id.initialize({
-          client_id: clientId,
-          callback: (response) => {
-            if (!response.credential) {
-              callbacks.current.onError(t("account.signInFailed", "Google sign-in failed."));
-              return;
-            }
-            void signInWithGoogle(response.credential)
-              .then(() => callbacks.current.onSignedIn())
-              .catch((error: unknown) =>
-                callbacks.current.onError(
-                  error instanceof Error ? error.message : t("account.signInFailed", "Google sign-in failed."),
-                ),
-              );
-          },
-        });
-        window.google.accounts.id.renderButton(container.current, {
-          type: "standard",
-          theme: "filled_black",
-          size: "large",
-          shape: "pill",
-          text: "continue_with",
-          width: 320,
-        });
-        setReady(true);
-      })
-      .catch(() => callbacks.current.onError(t("account.googleUnavailable", "Google sign-in could not be loaded.")));
-
-    return () => {
-      cancelled = true;
-    };
-  }, [clientId, t]);
+  const { containerRef, clientId, ready } = useGoogleButton({ onSuccess: onSignedIn, onError });
 
   return (
     <div className="account-signin">
@@ -275,7 +215,7 @@ function GoogleSignIn({ onSignedIn, onError }: { onSignedIn: () => void; onError
           "Sign in with Google to unlock your free tokens. Your files never leave your device or your own server.",
         )}
       </p>
-      <div ref={container} className="account-signin__button" />
+      <div ref={containerRef} className="account-signin__button" />
       {!clientId && (
         <p className="account-signin__hint">
           {t("account.missingClientId", "Set VITE_GOOGLE_CLIENT_ID to enable Google sign-in.")}
@@ -286,21 +226,3 @@ function GoogleSignIn({ onSignedIn, onError }: { onSignedIn: () => void; onError
   );
 }
 
-let googleScript: Promise<void> | null = null;
-
-function loadGoogleIdentity(): Promise<void> {
-  if (window.google) return Promise.resolve();
-  if (googleScript) return googleScript;
-  googleScript = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://accounts.google.com/gsi/client";
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => {
-      googleScript = null;
-      reject(new Error("Google Identity Services failed to load"));
-    };
-    document.head.appendChild(script);
-  });
-  return googleScript;
-}
