@@ -11,7 +11,7 @@ database_id = "928e2eb8-e784-4d5f-9d04-63f46bc044e5"
 [vars]
 APP_ORIGIN = "https://ilikepdf-app.ilikepdf.workers.dev"
 ALLOWED_ORIGINS = "http://localhost:5173,https://ilikepdf-app.ilikepdf.workers.dev,https://ilikepdf-c89.pages.dev,https://ilikepdf-app.pages.dev"
-GOOGLE_CLIENT_ID = "REPLACE_WITH_GOOGLE_WEB_CLIENT_ID"
+GOOGLE_CLIENT_ID = "893766120436-vtikemqo6n1hvieunhe3t6hubqqrgns9.apps.googleusercontent.com"
 PAYPAL_MODE = "sandbox"
 TOOL_COST = "1"
 AI_COST = "5"
