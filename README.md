@@ -65,6 +65,12 @@ Token packs and prices live in `cloudflare/auth-worker/src/index.ts`; the ledger
 
 Without the Worker URL the app stays fully offline: no sign-in, no metering, no external calls.
 
+The static landing page in `site/` deploys to Cloudflare Pages:
+
+```bash
+npx wrangler pages deploy site --project-name ilikepdf
+```
+
 ## Architecture
 
 | Layer | Stack | Location |
