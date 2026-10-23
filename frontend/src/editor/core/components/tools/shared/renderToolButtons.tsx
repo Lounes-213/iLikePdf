@@ -23,6 +23,7 @@ export const renderToolButtons = (
     matchedText?: string;
   }>,
   hasStars: boolean = false,
+  variant: "list" | "grid" = "list",
 ) => {
   // Create a map of matched text for quick lookup
   const matchedTextMap = new Map<string, string>();
@@ -39,7 +40,7 @@ export const renderToolButtons = (
           label={getSubcategoryLabel(t, subcategory.subcategoryId)}
         />
       )}
-      <div>
+      <div className={variant === "grid" ? "tool-picker__grid" : undefined}>
         {subcategory.tools.map(({ id, tool }) => {
           const matchedSynonym = matchedTextMap.get(id);
 
@@ -53,6 +54,7 @@ export const renderToolButtons = (
               disableNavigation={disableNavigation}
               matchedSynonym={matchedSynonym}
               hasStars={hasStars}
+              showDescription={variant === "grid"}
             />
           );
         })}

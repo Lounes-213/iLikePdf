@@ -158,3 +158,72 @@
 .tool-picker__header[data-scrolled] {
   border-bottom-color: var(--c-border-subtle);
 }
+
+/* ---- Phone: square tool cards with a short description ---- */
+.tool-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  width: 100%;
+}
+
+@media (min-width: 540px) {
+  .tool-picker__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.tool-picker__grid .tool-button-container {
+  height: 100%;
+}
+
+.tool-picker__grid .tool-button.sui-btn {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 0.5rem;
+  height: 100%;
+  min-height: 8.6rem;
+  padding: 0.85rem !important;
+  border: 1px solid var(--c-border-subtle) !important;
+  border-radius: 0.9rem !important;
+  background: var(--c-surface) !important;
+}
+
+.tool-picker__grid .tool-button.sui-btn:hover {
+  border-color: var(--c-brand) !important;
+  background: var(--c-surface-raised) !important;
+}
+
+.tool-picker__grid .tool-button .mantine-Button-inner {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.55rem;
+  height: 100%;
+}
+
+.tool-picker__grid .tool-button .mantine-Button-section {
+  margin-inline-end: 0 !important;
+  font-size: 1.35rem;
+}
+
+.tool-picker__grid .tool-button .mantine-Button-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  width: 100%;
+  text-align: left;
+  white-space: normal !important;
+  overflow: visible !important;
+}
+
+.tool-picker__grid .tool-button__description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.73rem;
+  line-height: 1.35;
+  color: var(--c-text-muted);
+}

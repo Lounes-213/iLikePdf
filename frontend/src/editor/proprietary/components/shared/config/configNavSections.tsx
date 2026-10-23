@@ -39,6 +39,7 @@ const AdminAiSection = lazy(
   () => import("@app/components/shared/config/configSections/AdminAiSection"),
 );
 import AccountCards from "@core/components/shared/config/configSections/preferences/AccountCards";
+import { GoogleAccountCard } from "@app/components/account/GoogleAccountCard";
 import AdminAuditSection from "@app/components/shared/config/configSections/AdminAuditSection";
 import AdminUsageSection from "@app/components/shared/config/configSections/AdminUsageSection";
 import ApiKeys from "@app/components/shared/config/configSections/ApiKeys";
@@ -71,7 +72,7 @@ export const useConfigNavSections = (
   // Core owns the page; the flavor supplies what core has no concept of.
   const sections = extendPreferences(
     coreSections.filter((s) => s.id !== "about"),
-    loginEnabled ? { accountSlot: <AccountCards /> } : {},
+    { accountSlot: loginEnabled ? <><GoogleAccountCard /><AccountCards /></> : <GoogleAccountCard /> },
   );
 
   const preferences = sections.find((s) => s.id === "preferences");

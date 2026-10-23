@@ -16,6 +16,7 @@ import { useIsScrolled } from "@app/hooks/useIsScrolled";
 import { ToolId } from "@app/types/toolId";
 import { getSubcategoryLabel } from "@app/data/toolsTaxonomy";
 import { ToolPickerFooterExtensions } from "@app/components/tools/toolPicker/ToolPickerFooterExtensions";
+import { useIsMobile } from "@app/hooks/useIsMobile";
 
 interface ToolPickerProps {
   selectedToolKey: string | null;
@@ -71,6 +72,7 @@ const ToolPicker = ({
   header,
 }: ToolPickerProps) => {
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
 
   const { scrolled, scrollRef } = useIsScrolled();
   // The lazy sections observe against the scroller itself, so they need a
@@ -138,6 +140,7 @@ const ToolPicker = ({
                   false,
                   filteredTools,
                   true,
+                  isMobile ? "grid" : "list",
                 ),
               )
             )}
@@ -151,7 +154,7 @@ const ToolPicker = ({
             {favoriteToolItems.length === 0 && recommendedItems.length === 0 ? (
               <NoToolsFound />
             ) : (
-              <div className="tool-picker__compact-list">
+              <div className={isMobile ? "tool-picker__grid" : "tool-picker__compact-list"}>
                 {favoriteToolItems.map(({ id, tool }) => (
                   <ToolButton
                     key={`fav-${id}`}
@@ -202,7 +205,7 @@ const ToolPicker = ({
                   <div style={HEADER_TEXT_STYLE}>
                     {t("toolPanel.fullscreen.favorites", "Favourites")}
                   </div>
-                  <div>
+                  <div className={isMobile ? "tool-picker__grid" : undefined}>
                     {favoriteToolItems.map(({ id, tool }) => (
                       <ToolButton
                         key={`fav-${id}`}
@@ -221,7 +224,7 @@ const ToolPicker = ({
                   <div style={HEADER_TEXT_STYLE}>
                     {t("toolPanel.fullscreen.recommended", "Recommended")}
                   </div>
-                  <div>
+                  <div className={isMobile ? "tool-picker__grid" : undefined}>
                     {recommendedItems.map(({ id, tool }) => (
                       <ToolButton
                         key={`rec-${id}`}
@@ -258,6 +261,7 @@ const ToolPicker = ({
                         false,
                         undefined,
                         true,
+                        isMobile ? "grid" : "list",
                       )}
                     </Box>
                   </LazyToolSection>

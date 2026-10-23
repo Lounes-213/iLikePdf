@@ -1,33 +1,36 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@app/ui/Button";
+import { useSyncExternalStore } from "react";
 import { Modal } from "@app/ui/Modal";
+import { Button } from "@app/ui/Button";
 import { useGoogleButton } from "@app/components/account/useGoogleButton";
+import { useTokenPacks } from "@app/hooks/useTokenPacks";
 import {
   consumePurchaseResult,
   getSession,
-  getTokenPacks,
   isAuthConfigured,
   refreshUser,
   resumePaypalCapture,
   signOut,
-  startPaypalCheckout,
-  startStripeCheckout,
   subscribeSession,
   type AuthUser,
   type TokenPack,
 } from "@app/services/authWorker";
-import "@app/components/account/AccountWidget.css";
+import "@app/components/account/Account.css";
 
-type Notice = { tone: "ok" | "error"; message: string } | null;
+export type Notice = { tone: "ok" | "error"; message: string } | null;
 
-export function AccountWidget() {
+/**
+ * The account dialog. Opens from the custom `ilikepdf:open-account` event when
+ * a tool run needs a session or a top-up, so it mounts once in the app frame
+ * and shows nothing of its own.
+ */
+export function AccountDialog() {
   const { t } = useTranslation();
   const session = useSyncExternalStore(subscribeSession, getSession);
   const [open, setOpen] = useState(false);
-  const [packs, setPacks] = useState<TokenPack[]>([]);
   const [notice, setNotice] = useState<Notice>(null);
-  const [busy, setBusy] = useState<string | null>(null);
+  const { packs, busy, purchase } = useTokenPacks(setNotice);
 
   useEffect(() => {
     if (!isAuthConfigured()) return;
@@ -69,100 +72,43 @@ export function AccountWidget() {
   }, [t]);
 
   useEffect(() => {
-    if (!open || !getSession()) return;
-    void refreshUser();
+    if (open && getSession()) void refreshUser();
   }, [open]);
-
-  useEffect(() => {
-    if (!open || packs.length > 0 || !isAuthConfigured()) return;
-    void getTokenPacks()
-      .then(setPacks)
-      .catch(() => setNotice({ tone: "error", message: t("account.packsUnavailable", "Token packs are unavailable right now.") }));
-  }, [open, packs.length, t]);
-
-  async function purchase(provider: "stripe" | "paypal", packId: string) {
-    setBusy(`${provider}:${packId}`);
-    setNotice(null);
-    try {
-      if (provider === "stripe") await startStripeCheckout(packId);
-      else await startPaypalCheckout(packId);
-    } catch (error) {
-      const raw = error instanceof Error ? error.message : "";
-      setNotice({
-        tone: "error",
-        message: /not configured|503/i.test(raw)
-          ? t("account.paymentsUnavailable", "Payments are not enabled on this deployment yet.")
-          : raw || t("account.checkoutFailed", "Checkout failed."),
-      });
-      setBusy(null);
-    }
-  }
 
   if (!isAuthConfigured()) return null;
 
-  const balance = session?.user.balance ?? 0;
-
   return (
-    <>
-      <button
-        type="button"
-        className="account-widget"
-        onClick={() => setOpen(true)}
-        aria-label={session ? t("account.open", "Open account") : t("account.signIn", "Sign in")}
-      >
-        {session?.user.picture ? (
-          <img className="account-widget__avatar" src={session.user.picture} alt="" referrerPolicy="no-referrer" />
-        ) : (
-          <span className="account-widget__avatar account-widget__avatar--empty">
-            {(session?.user.name ?? session?.user.email ?? "i").charAt(0).toUpperCase()}
-          </span>
-        )}
-        <span className="account-widget__label">
-          {session ? (
-            <>
-              <span className="account-widget__name">{session.user.name ?? session.user.email}</span>
-              <span className="account-widget__tokens">{t("account.tokens", "{{count}} tokens", { count: balance })}</span>
-            </>
-          ) : (
-            t("account.signIn", "Sign in")
-          )}
-        </span>
-      </button>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      title={t("account.title", "iLikePdf account")}
+      subtitle={t("account.subtitle", "One free allowance, then top up when you need more.")}
+      width="md"
+    >
+      {notice && <p className={`account-notice account-notice--${notice.tone}`}>{notice.message}</p>}
 
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title={t("account.title", "iLikePdf account")}
-        subtitle={t("account.subtitle", "One free allowance, then top up when you need more.")}
-        width="md"
-      >
-        {notice && <p className={`account-notice account-notice--${notice.tone}`}>{notice.message}</p>}
-
-        {session ? (
-          <SignedIn
-            user={session.user}
-            packs={packs}
-            busy={busy}
-            onPurchase={purchase}
-            onSignOut={() => {
-              void signOut();
-              setOpen(false);
-            }}
-          />
-        ) : (
-          <GoogleSignIn
-            onSignedIn={() => {
-              setNotice({ tone: "ok", message: t("account.welcome", "You are signed in.") });
-            }}
-            onError={(message) => setNotice({ tone: "error", message })}
-          />
-        )}
-      </Modal>
-    </>
+      {session ? (
+        <SignedIn
+          user={session.user}
+          packs={packs}
+          busy={busy}
+          onPurchase={purchase}
+          onSignOut={() => {
+            void signOut();
+            setOpen(false);
+          }}
+        />
+      ) : (
+        <GoogleSignIn
+          onSignedIn={() => setNotice({ tone: "ok", message: t("account.welcome", "You are signed in.") })}
+          onError={(message) => setNotice({ tone: "error", message })}
+        />
+      )}
+    </Modal>
   );
 }
 
-function SignedIn({
+export function SignedIn({
   user,
   packs,
   busy,
@@ -228,7 +174,13 @@ function SignedIn({
   );
 }
 
-function GoogleSignIn({ onSignedIn, onError }: { onSignedIn: () => void; onError: (message: string) => void }) {
+export function GoogleSignIn({
+  onSignedIn,
+  onError,
+}: {
+  onSignedIn: () => void;
+  onError: (message: string) => void;
+}) {
   const { t } = useTranslation();
   const { containerRef, clientId, ready } = useGoogleButton({ onSuccess: onSignedIn, onError });
 
@@ -250,4 +202,3 @@ function GoogleSignIn({ onSignedIn, onError }: { onSignedIn: () => void; onError
     </div>
   );
 }
-
