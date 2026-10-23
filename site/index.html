@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>iLikePdf — a private PDF workspace</title>
+    <meta
+      name="description"
+      content="iLikePdf is a private, self-hostable PDF workspace: 50+ tools to edit, convert, sign, redact and automate PDFs without sending documents to a third party."
+    />
+    <meta property="og:title" content="iLikePdf — a private PDF workspace" />
+    <meta property="og:description" content="50+ PDF tools that run on your machine or your own server. Optional Google sign-in and token top-ups." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="https://raw.githubusercontent.com/Lounes-213/iLikePdf/main/frontend/public/favicon.svg" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f0f10;
+        --surface: #17171a;
+        --surface-2: #1e1e22;
+        --border: #2a2a2e;
+        --text: #fafafa;
+        --muted: #a1a1aa;
+        --orange: #f97316;
+        --orange-soft: #fb923c;
+        --orange-dark: #ea580c;
+        --radius: 18px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a { color: inherit; }
+
+      .wrap { width: min(1120px, calc(100% - 2.5rem)); margin: 0 auto; }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(14px);
+        background: rgb(15 15 16 / 78%);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
+
+      .brand { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+      .brand svg { width: 30px; height: 30px; }
+
+      .nav nav { display: flex; gap: 1.25rem; margin-left: auto; }
+      .nav nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; }
+      .nav nav a:hover { color: var(--text); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary { background: linear-gradient(135deg, var(--orange-soft), var(--orange-dark)); color: #fff; }
+      .btn-ghost { border-color: var(--border); background: var(--surface); color: var(--text); }
+
+      .hero { padding: 5.5rem 0 4.5rem; text-align: center; position: relative; overflow: hidden; }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: -40% 20% auto;
+        height: 520px;
+        background: radial-gradient(circle, rgb(249 115 22 / 22%), transparent 62%);
+        pointer-events: none;
+      }
+      .hero h1 { position: relative; margin: 0 auto 1rem; max-width: 18ch; font-size: clamp(2.4rem, 6vw, 4.1rem); line-height: 1.05; letter-spacing: -0.03em; }
+      .hero h1 span { background: linear-gradient(120deg, var(--orange-soft), var(--orange)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .hero p { position: relative; margin: 0 auto 2rem; max-width: 60ch; color: var(--muted); font-size: 1.08rem; }
+      .hero .actions { position: relative; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+      .hero .note { margin-top: 1.1rem; font-size: 0.82rem; color: #71717a; }
+
+      .tools { display: flex; flex-wrap: wrap; gap: 0.45rem; justify-content: center; margin-top: 2.5rem; position: relative; }
+      .tools span { padding: 0.35rem 0.7rem; border: 1px solid var(--border); border-radius: 999px; font-size: 0.78rem; color: var(--muted); background: rgb(255 255 255 / 2%); }
+
+      section { padding: 4rem 0; }
+      h2 { margin: 0 0 0.6rem; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.02em; }
+      .lead { margin: 0 0 2.5rem; color: var(--muted); max-width: 62ch; }
+
+      .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .card { padding: 1.4rem; border: 1px solid var(--border); border-radius: var(--radius); background: linear-gradient(180deg, var(--surface), var(--bg)); }
+      .card h3 { margin: 0 0 0.4rem; font-size: 1.02rem; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+      .card .dot { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; margin-bottom: 0.85rem; background: rgb(249 115 22 / 14%); color: var(--orange); font-weight: 700; }
+
+      .steps { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: step; }
+      .step { padding: 1.4rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+      .step::before { counter-increment: step; content: counter(step); display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 50%; background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.75rem; }
+
+      .pricing { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .price { padding: 1.6rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); display: flex; flex-direction: column; gap: 0.4rem; }
+      .price.featured { border-color: var(--orange); box-shadow: 0 0 0 1px rgb(249 115 22 / 25%), 0 18px 60px rgb(249 115 22 / 10%); }
+      .price .amount { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+      .price .amount small { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+      .price ul { margin: 0.6rem 0 1.2rem; padding: 0; list-style: none; color: var(--muted); font-size: 0.9rem; }
+      .price li { padding: 0.15rem 0; }
+      .price li::before { content: "✓"; color: var(--orange); margin-right: 0.5rem; }
+      .price .btn { margin-top: auto; }
+
+      .faq details { border-bottom: 1px solid var(--border); padding: 1rem 0; }
+      .faq summary { cursor: pointer; font-weight: 600; }
+      .faq p { color: var(--muted); margin: 0.6rem 0 0; }
+
+      footer { border-top: 1px solid var(--border); padding: 2.5rem 0; color: var(--muted); font-size: 0.88rem; }
+      footer .row { display: flex; gap: 1rem; justify-content: space-between; flex-wrap: wrap; align-items: center; }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: var(--text); }
+
+      @media (max-width: 720px) {
+        .nav nav { display: none; }
+        .hero { padding-top: 3.5rem; }
+        section { padding: 3rem 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="brand" href="#top" aria-label="iLikePdf home">
+          <svg viewBox="0 0 32 32" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fb923c" />
+                <stop offset="1" stop-color="#ea580c" />
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#g)"
+              d="M16 28s-10-6.1-10-13.1C6 10.2 9.6 7 13.4 7c2 0 3.4.9 4.6 2.6C19.2 7.9 20.6 7 22.6 7 26.4 7 30 10.2 30 14.9 30 21.9 20 28 16 28z"
+            />
+            <path d="M16 10.2v13.6" stroke="#0f0f10" stroke-width="2.1" stroke-linecap="round" opacity=".55" />
+          </svg>
+          iLikePdf
+        </a>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#pricing">Tokens</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://github.com/Lounes-213/iLikePdf">GitHub</a>
+        </nav>
+        <a class="btn btn-primary" href="https://github.com/Lounes-213/iLikePdf">Get started</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="hero wrap">
+        <h1>Your PDFs. Your server. <span>Your rules.</span></h1>
+        <p>
+          iLikePdf is a private PDF workspace with 50+ tools to edit, convert, sign, redact and automate documents.
+          Run it on your laptop or your own infrastructure — nothing is uploaded to someone else's cloud.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/Lounes-213/iLikePdf">View on GitHub</a>
+          <a class="btn btn-ghost" href="#features">Explore features</a>
+        </div>
+        <p class="note">Open source · MIT license · Self-hosted in minutes</p>
+        <div class="tools" aria-label="Popular tools">
+          <span>Merge</span><span>Split</span><span>Compress</span><span>OCR</span><span>Redact</span>
+          <span>Sign</span><span>Watermark</span><span>Compare</span><span>Convert</span><span>Automate</span>
+        </div>
+      </div>
+
+      <section id="features" class="wrap">
+        <h2>Everything a document needs</h2>
+        <p class="lead">One workspace instead of a dozen online converters that keep a copy of your files.</p>
+        <div class="grid">
+          <article class="card"><div class="dot">→</div><h3>50+ tools</h3><p>Merge, split, rotate, compress, watermark, sign, compare, and convert to and from Office, images and HTML.</p></article>
+          <article class="card"><div class="dot">⌘</div><h3>Desktop-class workflow</h3><p>Upload once and chain tools. Files stay in the browser between operations, so large documents don't get re-uploaded.</p></article>
+          <article class="card"><div class="dot">◎</div><h3>Private by design</h3><p>The backend is stateless and processes documents in memory or temporary storage on a machine you control.</p></article>
+          <article class="card"><div class="dot">⚙</div><h3>Automation</h3><p>Build no-code pipelines in the UI or call the REST API for every tool to process documents at scale.</p></article>
+          <article class="card"><div class="dot">文</div><h3>40+ languages</h3><p>Full localization, dark and light themes, and an interface that works on desktop, tablet and phone.</p></article>
+          <article class="card"><div class="dot">★</div><h3>Optional accounts</h3><p>Add Google sign-in and a token balance when you want to share an instance with other people.</p></article>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <h2>Running in three steps</h2>
+        <p class="lead">No account needed to start. Accounts and tokens are opt-in.</p>
+        <div class="steps">
+          <article class="step"><h3>Start the app</h3><p>Run the Spring Boot backend and the Vite front end, or use the task runner.</p></article>
+          <article class="step"><h3>Process documents</h3><p>Drop a PDF into the workbench and chain the tools you need.</p></article>
+          <article class="step"><h3>Add accounts if you want</h3><p>Deploy the Cloudflare Worker for Google sign-in, token metering and top-ups.</p></article>
+        </div>
+      </section>
+
+      <section id="pricing" class="wrap">
+        <h2>Token packs</h2>
+        <p class="lead">Every new account starts with 50 free tokens. A PDF tool run costs 1 token; an AI-assisted run costs 5.</p>
+        <div class="pricing">
+          <article class="price">
+            <h3>Starter</h3>
+            <div class="amount">$2.99 <small>one-off</small></div>
+            <ul><li>100 tokens</li><li>Card or PayPal</li><li>Tokens never expire</li></ul>
+            <a class="btn btn-ghost" href="https://github.com/Lounes-213/iLikePdf">Get tokens</a>
+          </article>
+          <article class="price featured">
+            <h3>Pro</h3>
+            <div class="amount">$9.99 <small>one-off</small></div>
+            <ul><li>500 tokens</li><li>Card or PayPal</li><li>Best for regular use</li></ul>
+            <a class="btn btn-primary" href="https://github.com/Lounes-213/iLikePdf">Get tokens</a>
+          </article>
+          <article class="price">
+            <h3>Mega</h3>
+            <div class="amount">$29.99 <small>one-off</small></div>
+            <ul><li>2,000 tokens</li><li>Card or PayPal</li><li>For teams and heavy batches</li></ul>
+            <a class="btn btn-ghost" href="https://github.com/Lounes-213/iLikePdf">Get tokens</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="faq" class="wrap faq">
+        <h2>Questions</h2>
+        <details>
+          <summary>Where are my files stored?</summary>
+          <p>In your browser and on the machine running the backend. iLikePdf has no cloud storage and no telemetry.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>No. Accounts and tokens are only enabled when you deploy the optional Cloudflare Worker.</p>
+        </details>
+        <details>
+          <summary>How do payments work?</summary>
+          <p>Checkout runs through Stripe (cards) and PayPal. Tokens are credited by the payment provider's webhook or capture callback, not by the browser.</p>
+        </details>
+        <details>
+          <summary>Can I self-host the whole stack?</summary>
+          <p>Yes. The Java backend and React front end run on any machine with JDK 25 and Node.js. The Worker is only needed for shared accounts.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap row">
+        <span>© <span id="year">2026</span> iLikePdf · MIT license</span>
+        <span><a href="https://github.com/Lounes-213/iLikePdf">GitHub</a> · <a href="https://github.com/Lounes-213/iLikePdf/issues">Issues</a></span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

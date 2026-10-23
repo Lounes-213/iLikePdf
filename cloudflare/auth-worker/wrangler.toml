@@ -1,0 +1,18 @@
+name = "ilikepdf-auth"
+main = "src/index.ts"
+compatibility_date = "2026-01-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ilikepdf"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[vars]
+APP_ORIGIN = "http://localhost:5173"
+ALLOWED_ORIGINS = "http://localhost:5173"
+GOOGLE_CLIENT_ID = "REPLACE_WITH_GOOGLE_WEB_CLIENT_ID"
+PAYPAL_MODE = "sandbox"
+TOOL_COST = "1"
+AI_COST = "5"
+FREE_TOKENS = "50"

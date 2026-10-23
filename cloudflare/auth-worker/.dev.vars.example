@@ -1,0 +1,9 @@
+GOOGLE_CLIENT_ID=your-google-web-client-id.apps.googleusercontent.com
+SESSION_SECRET=generate-with-openssl-rand-base64-32
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+PAYPAL_CLIENT_ID=xxx
+PAYPAL_CLIENT_SECRET=xxx
+PAYPAL_MODE=sandbox
+APP_ORIGIN=http://localhost:5173
+ALLOWED_ORIGINS=http://localhost:5173

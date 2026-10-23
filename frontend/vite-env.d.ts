@@ -13,6 +13,10 @@ interface ImportMetaEnv {
   readonly VITE_STRIPE_PUBLISHABLE_KEY: string;
   readonly VITE_PUBLIC_POSTHOG_KEY: string;
   readonly VITE_PUBLIC_POSTHOG_HOST: string;
+  /** Base URL of the iLikePdf Cloudflare Worker (accounts, tokens, payments). Empty disables accounts. */
+  readonly VITE_AUTH_WORKER_URL: string;
+  /** Google OAuth Web Client ID used for Google Identity Services sign-in. */
+  readonly VITE_GOOGLE_CLIENT_ID: string;
 
   // SaaS only (.env.saas)
   readonly VITE_USERBACK_TOKEN: string;
