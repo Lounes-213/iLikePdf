@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <!-- Scale only, anchored at the origin: ChatPanel.css animates these halves in the mark's own 32x32 units. -->
+  <g transform="scale(0.75)">
+    <path class="stirling-thinking__path-right" d="M16 29V7c.9-1.8 2.8-3 5.1-3C25.4 4 29 7.4 29 11.9 29 20.6 16 29 16 29Z" />
+    <path class="stirling-thinking__path-left" d="M16 29C16 29 3 20.6 3 11.9 3 7.4 6.6 4 10.9 4c2.3 0 4.2 1.2 5.1 3V29Z" />
+  </g>
+</svg>
