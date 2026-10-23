@@ -4,6 +4,12 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Login from "@app/routes/Login";
 import { useGoogleButton } from "@app/components/account/useGoogleButton";
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key: string, fallback?: string) => (typeof fallback === "string" ? fallback : key),
+  }),
+}));
+
 vi.mock("@app/components/account/useGoogleButton", () => ({
   useGoogleButton: vi.fn(() => ({
     containerRef: { current: null },
@@ -14,6 +20,8 @@ vi.mock("@app/components/account/useGoogleButton", () => ({
 
 vi.mock("@app/services/authWorker", () => ({
   isAuthConfigured: vi.fn(() => true),
+  getSession: vi.fn(() => null),
+  subscribeSession: vi.fn(() => () => {}),
 }));
 
 describe("Login (Google-only)", () => {
@@ -26,7 +34,7 @@ describe("Login (Google-only)", () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole("heading", { name: /sign in to ilikepdf/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /welcome to ilikepdf/i })).toBeInTheDocument();
     expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/password/i)).not.toBeInTheDocument();
     expect(useGoogleButton).toHaveBeenCalled();

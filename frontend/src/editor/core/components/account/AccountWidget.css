@@ -2,7 +2,7 @@
   position: fixed;
   right: 1rem;
   bottom: 1rem;
-  z-index: 60;
+  z-index: 70;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -192,4 +192,30 @@
 .account-notice--error {
   background: var(--c-danger-subtle);
   color: var(--c-danger);
+}
+
+@media (max-width: 640px) {
+  .account-widget {
+    right: 0.6rem;
+    bottom: calc(0.6rem + env(safe-area-inset-bottom));
+    gap: 0.4rem;
+    padding: 0.28rem 0.6rem 0.28rem 0.28rem;
+  }
+
+  .account-widget__avatar {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .account-widget__label {
+    font-size: 0.72rem;
+  }
+
+  .account-widget__name {
+    display: none;
+  }
+
+  .account-widget__tokens {
+    font-size: 0.68rem;
+  }
 }

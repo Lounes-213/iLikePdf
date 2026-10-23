@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@app/auth/UseSession";
 import { useAppConfig } from "@app/contexts/AppConfigContext";
@@ -8,6 +8,7 @@ import { useBackendProbe } from "@app/hooks/useBackendProbe";
 import { EDITOR_BASENAME } from "@app/routes/editorBasename";
 import AuthLayout from "@app/routes/authShared/AuthLayout";
 import LoginHeader from "@app/routes/login/LoginHeader";
+import { getSession, subscribeSession } from "@app/services/authWorker";
 import { useTranslation } from "react-i18next";
 import { Button } from "@app/ui/Button";
 
@@ -20,6 +21,8 @@ import { Button } from "@app/ui/Button";
  */
 export default function Landing() {
   const { session, loading: authLoading } = useAuth();
+  const googleSession = useSyncExternalStore(subscribeSession, getSession);
+  const signedIn = Boolean(session || googleSession);
   const { config, loading: configLoading, refetch } = useAppConfig();
   const backendProbe = useBackendProbe();
   const location = useLocation();
@@ -32,7 +35,7 @@ export default function Landing() {
   const probePending = backendProbe.loading;
 
   // The backend-down screen is not the app. Loading is: it resolves in a moment.
-  useSuppressQuickNavRail(!session && backendProbe.status !== "up");
+  useSuppressQuickNavRail(!signedIn && backendProbe.status !== "up");
 
   // Periodically probe while backend isn't up so the screen can auto-advance when it comes online
   useEffect(() => {
@@ -61,7 +64,7 @@ export default function Landing() {
   ]);
 
   // Show loading while checking auth and config
-  if (loading || (!session && probePending)) {
+  if (loading || (!signedIn && probePending)) {
     return (
       <div
         style={{
@@ -88,7 +91,7 @@ export default function Landing() {
   }
 
   // If backend is not up yet and user is not authenticated, show a branded status screen
-  if (!session && backendProbe.status !== "up") {
+  if (!signedIn && backendProbe.status !== "up") {
     const backendTitle = t("backendStartup.notFoundTitle", "Backend not found");
     const handleRetry = async () => {
       const result = await backendProbe.probe();
@@ -133,7 +136,7 @@ export default function Landing() {
 
   // If we have a session, show the main app
   // Note: First login password change is now handled by the onboarding flow
-  if (session) {
+  if (signedIn) {
     return <AppRoot />;
   }
 

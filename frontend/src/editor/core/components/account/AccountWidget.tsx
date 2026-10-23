@@ -52,6 +52,28 @@ export function AccountWidget() {
   }, [t]);
 
   useEffect(() => {
+    function onPrompt(event: Event) {
+      const reason = (event as CustomEvent<{ reason?: string }>).detail?.reason;
+      setOpen(true);
+      setNotice(
+        reason === "insufficient_tokens"
+          ? {
+              tone: "error",
+              message: t("account.insufficientTokensShort", "You are out of tokens. Top up to keep running tools."),
+            }
+          : { tone: "error", message: t("account.signInRequired", "Sign in with Google to run tools.") },
+      );
+    }
+    window.addEventListener("ilikepdf:open-account", onPrompt);
+    return () => window.removeEventListener("ilikepdf:open-account", onPrompt);
+  }, [t]);
+
+  useEffect(() => {
+    if (!open || !getSession()) return;
+    void refreshUser();
+  }, [open]);
+
+  useEffect(() => {
     if (!open || packs.length > 0 || !isAuthConfigured()) return;
     void getTokenPacks()
       .then(setPacks)
@@ -65,9 +87,12 @@ export function AccountWidget() {
       if (provider === "stripe") await startStripeCheckout(packId);
       else await startPaypalCheckout(packId);
     } catch (error) {
+      const raw = error instanceof Error ? error.message : "";
       setNotice({
         tone: "error",
-        message: error instanceof Error ? error.message : t("account.checkoutFailed", "Checkout failed."),
+        message: /not configured|503/i.test(raw)
+          ? t("account.paymentsUnavailable", "Payments are not enabled on this deployment yet.")
+          : raw || t("account.checkoutFailed", "Checkout failed."),
       });
       setBusy(null);
     }

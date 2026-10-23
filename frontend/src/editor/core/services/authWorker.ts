@@ -116,7 +116,9 @@ export async function spendTokens(kind: SpendKind, tool?: string): Promise<Spend
   };
 
   if (response.status === 402) {
-    return { ok: false, error: "insufficient_tokens", balance: body.balance ?? 0 };
+    const balance = body.balance ?? 0;
+    writeSession({ token: session.token, user: { ...session.user, balance } });
+    return { ok: false, error: "insufficient_tokens", balance };
   }
   if (!response.ok) {
     return { ok: false, error: body.error ?? "token_check_failed", balance: session.user.balance };
