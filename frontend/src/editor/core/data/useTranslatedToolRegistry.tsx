@@ -384,12 +384,12 @@ export function useTranslatedToolCatalog(): TranslatedToolCatalog {
           "Automatically detect form fields with AI and make your PDF fillable.",
         ),
         categoryId: ToolCategoryId.STANDARD_TOOLS,
-        subcategoryId: SubcategoryId.AUTOMATION,
+        subcategoryId: SubcategoryId.AI,
         maxFiles: 1,
         endpoints: ["form-detection"],
         unavailableMessage: t(
           "home.autoFormDetection.unavailable",
-          "Needs the AI detection model, which isn't installed on this server. An administrator can add it under Settings > Features > AI Form Detection.",
+          "قريباً (Bientôt disponible) : Cette fonctionnalité arrive très bientôt.",
         ),
         operationConfig: asRegistryConfig(autoFormDetectionOperationConfig),
         synonyms: [

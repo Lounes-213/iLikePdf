@@ -227,7 +227,7 @@ export function AiConnectionCard({
                   <InfoTooltip
                     label={t(
                       "admin.settings.ai.general.url.description",
-                      "Internal URL of the Python AI engine, e.g. http://stirling-pdf-engine:5001.",
+                      "Internal URL of the Python AI engine, e.g. http://ilikepdf-engine:5001.",
                     )}
                   />
                 </Group>
@@ -236,7 +236,7 @@ export function AiConnectionCard({
               onChange={(e) =>
                 setSettings({ ...settings, url: e.target.value })
               }
-              placeholder="http://stirling-pdf-engine:5001"
+              placeholder="http://ilikepdf-engine:5001"
             />
 
             <Group

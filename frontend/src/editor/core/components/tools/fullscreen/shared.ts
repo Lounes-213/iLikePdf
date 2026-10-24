@@ -1,6 +1,6 @@
 import { useHotkeys } from "@app/contexts/HotkeyContext";
 import { useToolWorkflow } from "@app/contexts/ToolWorkflowContext";
-import { ToolRegistryEntry } from "@app/data/toolsTaxonomy";
+import { ToolRegistryEntry, SubcategoryId } from "@app/data/toolsTaxonomy";
 import { ToolId } from "@app/types/toolId";
 import type { ToolAvailabilityMap } from "@app/hooks/useToolManagement";
 import { useAppConfig } from "@app/contexts/AppConfigContext";
@@ -44,6 +44,15 @@ export const getToolDisabledReason = (
   toolAvailability?: ToolAvailabilityMap,
   premiumEnabled?: boolean,
 ): ToolDisabledReason => {
+  // AI-powered tools: marked as coming soon
+  if (
+    id === "autoFormDetection" ||
+    id === "classify" ||
+    tool.subcategoryId === SubcategoryId.AI
+  ) {
+    return "comingSoon";
+  }
+
   if (!tool.component && !tool.link && id !== "read" && id !== "multiTool") {
     return "comingSoon";
   }
@@ -124,7 +133,7 @@ export const getDisabledLabel = (
   }
   return {
     key: "toolPanel.fullscreen.comingSoon",
-    fallback: "Coming soon:",
+    fallback: "قريباً (Bientôt disponible) :",
   };
 };
 

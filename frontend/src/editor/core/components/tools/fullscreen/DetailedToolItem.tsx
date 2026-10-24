@@ -78,6 +78,11 @@ const DetailedToolItem: React.FC<DetailedToolItemProps> = ({
       <span className="tool-panel__fullscreen-body">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Text className="tool-panel__fullscreen-name">{tool.name}</Text>
+          {disabledReason === "comingSoon" && (
+            <Badge size="xs" variant="light" color="orange">
+              {t("common.comingSoonBadge", "قريباً")}
+            </Badge>
+          )}
           {tool.versionStatus === "alpha" && (
             <Badge size="xs" variant="light" color="orange">
               {/* we can add more translations for different badges in future, like beta, etc. */}

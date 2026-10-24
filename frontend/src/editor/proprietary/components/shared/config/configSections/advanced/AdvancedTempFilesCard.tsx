@@ -24,7 +24,7 @@ export function AdvancedTempFilesCard({
               <SettingsFieldLabel
                 info={t(
                   "admin.settings.advanced.tempFileManagement.baseTmpDir.description",
-                  "Base directory for temporary files (leave empty for default: java.io.tmpdir/stirling-pdf)",
+                  "Base directory for temporary files (leave empty for default: java.io.tmpdir/ilikepdf)",
                 )}
               >
                 {t(
@@ -45,7 +45,7 @@ export function AdvancedTempFilesCard({
             }
             placeholder={t(
               "admin.settings.advanced.tempFileManagement.baseTmpDir.placeholder",
-              "Default: java.io.tmpdir/stirling-pdf",
+              "Default: java.io.tmpdir/ilikepdf",
             )}
             disabled={!loginEnabled}
           />
@@ -132,7 +132,7 @@ export function AdvancedTempFilesCard({
                 )}
               </SettingsFieldLabel>
             }
-            value={settings.tempFileManagement?.prefix || "stirling-pdf-"}
+            value={settings.tempFileManagement?.prefix || "ilikepdf-"}
             onChange={(e) =>
               setSettings({
                 ...settings,
@@ -142,7 +142,7 @@ export function AdvancedTempFilesCard({
                 },
               })
             }
-            placeholder="stirling-pdf-"
+            placeholder="ilikepdf-"
             disabled={!loginEnabled}
           />
         </div>

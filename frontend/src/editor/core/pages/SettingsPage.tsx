@@ -79,7 +79,11 @@ const SettingsPageInner: React.FC = () => {
     navigate(EDITOR_BASENAME, { replace: true });
   }, [navigate]);
 
-  const { sections, overlay, aliases, pending } = useSettingsNav(leave);
+  const { sections: allSections, overlay, aliases, pending } = useSettingsNav(leave);
+  const sections = useMemo(() => {
+    if (!isMobile) return allSections;
+    return allSections.filter((s) => s.id !== "server" && s.id !== "monitoring");
+  }, [allSections, isMobile]);
   const items = useMemo(() => sections.flatMap((s) => s.items), [sections]);
 
   const urlSection = sectionFromPath(location.pathname);

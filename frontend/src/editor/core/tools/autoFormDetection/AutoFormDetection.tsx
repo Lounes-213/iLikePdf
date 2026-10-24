@@ -1,78 +1,39 @@
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { createToolFlow } from "@app/components/tools/shared/createToolFlow";
-import { useAutoFormDetectionParameters } from "@app/hooks/tools/autoFormDetection/useAutoFormDetectionParameters";
-import { useAutoFormDetectionOperation } from "@app/hooks/tools/autoFormDetection/useAutoFormDetectionOperation";
-import { useBaseTool } from "@app/hooks/tools/shared/useBaseTool";
-import {
-  DetectionSummary,
-  onSummary,
-} from "@app/services/formDetection/progress";
-import AutoFormDetectionSettings from "@app/components/tools/autoFormDetection/AutoFormDetectionSettings";
-import DetectionProgressPanel from "@app/components/tools/autoFormDetection/DetectionProgressPanel";
-import DetectionSummaryPanel from "@app/components/tools/autoFormDetection/DetectionSummaryPanel";
+import { Icon } from "@app/ui/Icon";
+import { Badge, Text, Stack } from "@mantine/core";
 import { BaseToolProps, ToolComponent } from "@app/types/tool";
+import { useAutoFormDetectionOperation } from "@app/hooks/tools/autoFormDetection/useAutoFormDetectionOperation";
 
-const AutoFormDetection = (props: BaseToolProps) => {
+const AutoFormDetection = (_props: BaseToolProps) => {
   const { t } = useTranslation();
 
-  const base = useBaseTool(
-    "autoFormDetection",
-    useAutoFormDetectionParameters,
-    useAutoFormDetectionOperation,
-    props,
+  return (
+    <div className="flex flex-col items-center justify-center p-12 text-center h-full min-h-[360px]">
+      <Stack align="center" gap="md" maw={460}>
+        <div
+          style={{
+            padding: "1.25rem",
+            borderRadius: "50%",
+            background: "rgba(249, 115, 22, 0.12)",
+          }}
+        >
+          <Icon name="form-scan" size="3rem" color="var(--c-accent, #f97316)" />
+        </div>
+        <Badge size="lg" color="orange" variant="light">
+          {t("common.comingSoonBadge", "قريباً — Bientôt disponible")}
+        </Badge>
+        <Text size="xl" fw={700}>
+          {t("home.autoFormDetection.title", "Auto Form Detection")}
+        </Text>
+        <Text c="dimmed" size="sm">
+          {t(
+            "home.aiTools.comingSoonDesc",
+            "Cette fonctionnalité basée sur l'intelligence artificielle (IA) arrive très bientôt dans iLikePdf !",
+          )}
+        </Text>
+      </Stack>
+    </div>
   );
-
-  const [summary, setSummary] = useState<DetectionSummary | null>(null);
-  useEffect(() => onSummary(setSummary), []);
-  useEffect(() => {
-    if (!base.hasResults) setSummary(null);
-  }, [base.hasResults]);
-
-  return createToolFlow({
-    files: {
-      selectedFiles: base.selectedFiles,
-      isCollapsed: base.hasFiles || base.hasResults,
-    },
-    steps: [
-      {
-        title: t("autoFormDetection.settings.title", "Settings"),
-        isCollapsed: !base.hasFiles || base.hasResults,
-        isVisible: !base.hasResults,
-        content: (
-          <AutoFormDetectionSettings
-            parameters={base.params.parameters}
-            onParameterChange={base.params.updateParameter}
-            disabled={base.operation.isLoading}
-          />
-        ),
-      },
-      {
-        title: t("autoFormDetection.summary.stepTitle", "Detection results"),
-        isVisible: base.hasResults && summary !== null,
-        isCollapsed: false,
-        content: summary ? <DetectionSummaryPanel summary={summary} /> : null,
-      },
-    ],
-    executeButton: {
-      text: t("autoFormDetection.submit", "Detect form fields"),
-      isVisible: !base.hasResults,
-      loadingText: t("autoFormDetection.loading", "Detecting form fields..."),
-      onClick: base.handleExecute,
-      endpointEnabled: base.endpointEnabled,
-      paramsValid: base.params.validateParameters(),
-    },
-    belowExecuteButton: (
-      <DetectionProgressPanel active={base.operation.isLoading} />
-    ),
-    review: {
-      isVisible: base.hasResults,
-      operation: base.operation,
-      title: t("autoFormDetection.results.title", "Review fillable PDF"),
-      onFileClick: base.handleThumbnailClick,
-      onUndo: base.handleUndo,
-    },
-  });
 };
 
 AutoFormDetection.tool = () => useAutoFormDetectionOperation;

@@ -178,6 +178,16 @@ const ToolButton: React.FC<ToolButtonProps> = ({
             opacity: visuallyUnavailable ? 0.25 : 1,
           }}
         />
+        {disabledReason === "comingSoon" && (
+          <Badge
+            size="xs"
+            variant="light"
+            color="orange"
+            style={{ flexShrink: 0 }}
+          >
+            {t("common.comingSoonBadge", "قريباً")}
+          </Badge>
+        )}
         {tool.versionStatus === "alpha" && (
           <Badge
             size="xs"

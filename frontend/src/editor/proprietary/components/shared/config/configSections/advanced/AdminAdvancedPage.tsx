@@ -69,7 +69,7 @@ export default function AdminAdvancedPage() {
           baseTmpDir: "",
           libreofficeDir: "",
           systemTempDir: "",
-          prefix: "stirling-pdf-",
+          prefix: "ilikepdf-",
           maxAgeHours: 24,
           cleanupIntervalMinutes: 30,
           startupCleanup: true,

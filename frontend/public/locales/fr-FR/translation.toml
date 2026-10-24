@@ -666,9 +666,9 @@ description = "Configurer le stockage des fichiers temporaires et le comportemen
 label = "Gestion des fichiers temporaires"
 
 [admin.settings.advanced.tempFileManagement.baseTmpDir]
-description = "Répertoire de base pour les fichiers temporaires (laisser vide pour la valeur par défaut : java.io.tmpdir/stirling-pdf)"
+description = "Répertoire de base pour les fichiers temporaires (laisser vide pour la valeur par défaut : java.io.tmpdir/ilikepdf)"
 label = "Répertoire temporaire de base"
-placeholder = "Par défaut : java.io.tmpdir/stirling-pdf"
+placeholder = "Par défaut : java.io.tmpdir/ilikepdf"
 
 [admin.settings.advanced.tempFileManagement.cleanupIntervalMinutes]
 description = "Fréquence d’exécution du nettoyage (en minutes)"
@@ -862,7 +862,7 @@ description = "Délai d’expiration pour les requêtes IA standard vers le mote
 label = "Délai d’expiration des requêtes (secondes)"
 
 [admin.settings.ai.general.url]
-description = "URL interne du moteur IA Python, p. ex. http://stirling-pdf-engine:5001."
+description = "URL interne du moteur IA Python, p. ex. http://ilikepdf-engine:5001."
 label = "URL du moteur IA"
 
 [admin.settings.ai.limits]
@@ -8046,7 +8046,7 @@ openFailed = "Impossible d’ouvrir votre navigateur. Ouvrez Utilisation et fact
 [portal.accountLink.panel]
 instancesSub = "Serveurs auto-hébergés connectés à la même équipe."
 instancesTitle = "Instances connectées"
-manageCloud = "Gérer sur stirling.com"
+manageCloud = "Gérer sur iLikePdf Cloud"
 otherInstancesSub = "Autres serveurs auto-hébergés connectés à la même équipe dans iLikePdf Cloud."
 otherInstancesTitle = "Autres instances connectées"
 revokeError = "Impossible de révoquer l’instance"
@@ -9205,7 +9205,7 @@ title = "Installer l’éditeur iLikePdf"
 
 [portal.home.download.docker]
 detailBody = "Exécutez l’image officielle sur votre serveur."
-note = "S’ouvre sur :8080. Connexion par défaut : admin / stirling."
+note = "S’ouvre sur :8080. Connexion par défaut : admin / ilikepdf."
 tagline = "Exécuter le serveur dans un conteneur"
 title = "Docker"
 variantFat = "Complète"
@@ -9237,7 +9237,7 @@ title = "macOS"
 [portal.home.download.manual]
 detailBody = "Exécutez le .jar sur un serveur bare metal."
 downloadBtn = "Télécharger le .jar"
-note = "Nécessite Java 21+. S’ouvre sur :8080 ; identifiant par défaut admin / stirling."
+note = "Nécessite Java 21+. S’ouvre sur :8080 ; identifiant par défaut admin / ilikepdf."
 runLabel = "Puis exécutez-le"
 tagline = "Exécutez le .jar sur un serveur bare metal"
 title = "Configuration manuelle du serveur"
@@ -10059,7 +10059,7 @@ label = "En-têtes"
 
 [portal.policies.operations.fields.index]
 label = "Index"
-placeholder = "stirling-audit"
+placeholder = "ilikepdf-audit"
 
 [portal.policies.operations.fields.issueKey]
 label = "Clé du ticket"
@@ -10108,7 +10108,7 @@ placeholder = "records@acme.com"
 
 [portal.policies.operations.fields.username]
 label = "Nom d’utilisateur Nextcloud"
-placeholder = "svc-stirling"
+placeholder = "svc-ilikepdf"
 
 [portal.policies.operations.googlechatNotify]
 description = "Informe un espace que la stratégie a traité un document."

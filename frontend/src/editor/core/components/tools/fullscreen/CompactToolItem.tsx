@@ -82,6 +82,11 @@ const CompactToolItem: React.FC<CompactToolItemProps> = ({
       <span className="tool-panel__fullscreen-list-body">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Text className="tool-panel__fullscreen-name">{tool.name}</Text>
+          {disabledReason === "comingSoon" && (
+            <Badge size="xs" variant="light" color="orange">
+              {t("common.comingSoonBadge", "قريباً")}
+            </Badge>
+          )}
           {tool.versionStatus === "alpha" && (
             <Badge size="xs" variant="light" color="orange">
               {t("toolPanel.alpha", "Alpha")}

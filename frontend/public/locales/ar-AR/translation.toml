@@ -666,9 +666,9 @@ description = "تهيئة تخزين الملفات المؤقتة وسلوك ا
 label = "إدارة الملفات المؤقتة"
 
 [admin.settings.advanced.tempFileManagement.baseTmpDir]
-description = "الدليل الأساسي للملفات المؤقتة (اتركه فارغًا للإعداد الافتراضي: java.io.tmpdir/stirling-pdf)"
+description = "الدليل الأساسي للملفات المؤقتة (اتركه فارغًا للإعداد الافتراضي: java.io.tmpdir/ilikepdf)"
 label = "الدليل الأساسي للملفات المؤقتة"
-placeholder = "الافتراضي: java.io.tmpdir/stirling-pdf"
+placeholder = "الافتراضي: java.io.tmpdir/ilikepdf"
 
 [admin.settings.advanced.tempFileManagement.cleanupIntervalMinutes]
 description = "عدد مرات تنفيذ التنظيف (بالدقائق)"
@@ -862,7 +862,7 @@ description = "مهلة طلبات AI القياسية إلى المحرك."
 label = "مهلة الطلب (ثوانٍ)"
 
 [admin.settings.ai.general.url]
-description = "URL الداخلي لمحرك Python AI، مثل http://stirling-pdf-engine:5001."
+description = "URL الداخلي لمحرك Python AI، مثل http://ilikepdf-engine:5001."
 label = "URL محرك AI"
 
 [admin.settings.ai.limits]
@@ -8046,7 +8046,7 @@ openFailed = "تعذر فتح متصفحك. افتح الاستخدام والف
 [portal.accountLink.panel]
 instancesSub = "الخوادم المستضافة ذاتيًا المتصلة بنفس الفريق."
 instancesTitle = "المثيلات المتصلة"
-manageCloud = "إدارة على stirling.com"
+manageCloud = "إدارة على iLikePdf Cloud"
 otherInstancesSub = "خوادم أخرى مستضافة ذاتيًا متصلة بالفريق نفسه في iLikePdf Cloud."
 otherInstancesTitle = "مثيلات متصلة أخرى"
 revokeError = "تعذر إبطال المثيل"
@@ -9205,7 +9205,7 @@ title = "تثبيت محرر iLikePdf"
 
 [portal.home.download.docker]
 detailBody = "شغّل الصورة الرسمية على خادمك."
-note = "يفتح على :8080. تسجيل الدخول الافتراضي: admin / stirling."
+note = "يفتح على :8080. تسجيل الدخول الافتراضي: admin / ilikepdf."
 tagline = "شغّل الخادم في حاوية"
 title = "Docker"
 variantFat = "كامل"
@@ -9237,7 +9237,7 @@ title = "macOS"
 [portal.home.download.manual]
 detailBody = "شغّل ملف .jar على خادم مادي مباشر."
 downloadBtn = "تنزيل ملف .jar"
-note = "يتطلب Java 21+. يفتح على :8080؛ تسجيل الدخول الافتراضي admin / stirling."
+note = "يتطلب Java 21+. يفتح على :8080؛ تسجيل الدخول الافتراضي admin / ilikepdf."
 runLabel = "ثم شغّله"
 tagline = "شغّل ملف .jar على خادم مادي مباشر"
 title = "إعداد خادم يدوي"
@@ -10059,7 +10059,7 @@ label = "الترويسات"
 
 [portal.policies.operations.fields.index]
 label = "الفهرس"
-placeholder = "stirling-audit"
+placeholder = "ilikepdf-audit"
 
 [portal.policies.operations.fields.issueKey]
 label = "مفتاح المشكلة"
@@ -10108,7 +10108,7 @@ placeholder = "records@acme.com"
 
 [portal.policies.operations.fields.username]
 label = "اسم مستخدم Nextcloud"
-placeholder = "svc-stirling"
+placeholder = "svc-ilikepdf"
 
 [portal.policies.operations.googlechatNotify]
 description = "يخبر مساحة بأن السياسة عالجت مستندًا."
