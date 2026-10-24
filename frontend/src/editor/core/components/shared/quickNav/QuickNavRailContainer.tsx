@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { NavSurface } from "@app/ui/NavSurface";
 import { Icon } from "@app/ui/Icon";
 import { QuickNavBrand } from "@app/components/shared/quickNav/QuickNavBrand";
-import type { QuickNavIdentity } from "@app/contexts/QuickNavHostContext";
 import {
   QuickNavRailBase,
   RailButton,
@@ -33,7 +32,6 @@ export interface QuickNavRailContainerProps extends Omit<
   onInvite?: () => void;
   onToggleNotifications?: () => void;
   notificationsOpen?: boolean;
-  identity?: QuickNavIdentity | null;
   onReturnHome: () => void;
 }
 
@@ -46,7 +44,6 @@ export function QuickNavRailContainer({
   onInvite,
   onToggleNotifications,
   notificationsOpen,
-  identity = null,
   onReturnHome,
   ...railProps
 }: QuickNavRailContainerProps) {
@@ -86,7 +83,6 @@ export function QuickNavRailContainer({
               {onOpenAccount && (
                 <QuickNavRailAccount
                   onOpen={onOpenAccount}
-                  identity={identity}
                   active={accountActive}
                 />
               )}

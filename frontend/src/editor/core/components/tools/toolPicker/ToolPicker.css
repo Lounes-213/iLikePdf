@@ -200,6 +200,8 @@
   align-items: flex-start !important;
   gap: 0.55rem;
   height: 100%;
+  width: 100%;
+  min-width: 0;
 }
 
 .tool-picker__grid .tool-button .mantine-Button-section {
@@ -216,6 +218,9 @@
   text-align: left;
   white-space: normal !important;
   overflow: visible !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .tool-picker__grid .tool-button__description {
@@ -226,4 +231,12 @@
   font-size: 0.73rem;
   line-height: 1.35;
   color: var(--c-text-muted);
+}
+
+/* The shared Button wraps its label in a nowrap span; card labels must wrap. */
+.tool-picker__grid .tool-button .mantine-Button-label span {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  text-overflow: clip !important;
 }

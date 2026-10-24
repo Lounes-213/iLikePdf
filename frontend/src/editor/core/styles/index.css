@@ -91,3 +91,22 @@ code {
     transparent
   );
 }
+
+/* Display preferences are root attributes so plain CSS can honour them. */
+html[data-reduce-motion] *,
+html[data-reduce-motion] *::before,
+html[data-reduce-motion] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-compact] {
+  --nav-rail-w: 2.75rem;
+  --nav-gutter: 0.375rem;
+}
+
+html[data-compact] .quick-nav-rail-item {
+  height: 2rem;
+}

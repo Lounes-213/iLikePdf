@@ -7,7 +7,7 @@ const ANNOTATED_PDF = path.join(
 );
 
 /**
- * Regression test for https://github.com/iLikePdf-Tools/iLikePdf-PDF/issues/6439
+ * Regression test for https://github.com/Stirling-Tools/iLikePdf/issues/6439
  *
  * The fixture PDF (3 pages) has 4 text annotations per page stored in
  * deliberately scrambled object order (D, B, C, A). With the sort applied,

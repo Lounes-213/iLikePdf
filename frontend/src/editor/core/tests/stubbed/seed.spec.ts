@@ -3,7 +3,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 /**
- * Seed test for iLikePdf-PDF E2E tests.
+ * Seed test for iLikePdf E2E tests.
  * This file is copied into generated tests by the Playwright Test Agents.
  * It provides the baseline environment: navigates to the app and verifies it loaded.
  */
@@ -62,9 +62,9 @@ export const TEST_FILES = {
   corrupted: resolveFixturePath("corrupted.pdf"),
 } as const;
 
-test.describe("iLikePdf-PDF seed", () => {
+test.describe("iLikePdf seed", () => {
   test("seed - app loads", async ({ page }) => {
-    // Navigate to the iLikePdf-PDF frontend
+    // Navigate to the iLikePdf frontend
     await page.goto("/editor");
 
     // The app may redirect to /login if authentication is enabled.

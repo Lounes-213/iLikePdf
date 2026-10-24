@@ -9,10 +9,7 @@ import type { QuickNavEntry } from "@app/components/shared/quickNav/QuickNavRail
 import type { ToolId } from "@app/types/toolId";
 import { useQuickNavHost } from "@app/contexts/QuickNavHostContext";
 import { requestReaderMode } from "@app/utils/pendingReaderMode";
-import {
-  saveEditorReturnPath,
-  takeEditorReturnPath,
-} from "@app/services/workbenchSession";
+import { takeEditorReturnPath } from "@app/services/workbenchSession";
 import { EDITOR_BASENAME } from "@app/routes/editorBasename";
 import { PORTAL_BASENAME } from "@app/routes/portalBasename";
 import { HAS_PORTAL } from "@app/routes/hasPortal";
@@ -20,15 +17,12 @@ import { DOCS_PATH, HAS_DOCS } from "@app/routes/docsRoute";
 import { stripBasePath } from "@app/constants/app";
 import { canCreateProcessingFolders } from "@app/hooks/useProcessingFolderCreation";
 import { requestProcessingFolderCreation } from "@app/utils/pendingProcessingFolderCreation";
-import { requestProcessorSignup } from "@app/services/processorSignup";
 import { useConnectedServer } from "@app/hooks/useConnectedServer";
 
 import { Icon } from "@app/ui/Icon";
 const SIZE = "1.125rem";
 
 /** Entries come from the URL, not either app's context, so the rail survives a switch. */
-/** Interpolated, not inlined: a literal "#acc…" reads as a hex colour to theme-lint. */
-const ACCOUNT_ANCHOR = "account";
 
 export function QuickNavRailHost() {
   const { t } = useTranslation();
@@ -131,38 +125,7 @@ export function QuickNavRailHost() {
     },
   };
 
-  const processor: QuickNavEntry = {
-    id: "processor",
-    label: t("quickNav.processor", "Processor"),
-    icon: <Icon name="cpu" size={SIZE} />,
-    current: inPortal,
-    disabled:
-      HAS_PORTAL && !inPortal && !host?.portalAccess && !host?.isAnonymous,
-    reason:
-      HAS_PORTAL && !inPortal && !host?.portalAccess && !host?.isAnonymous
-        ? t("quickNav.noProcessorAccess", "Ask an admin for processor access")
-        : undefined,
-    onClick: () => {
-      if (host?.isAnonymous) {
-        requestProcessorSignup();
-        return;
-      }
-      if (inPortal) {
-        returnHome();
-        return;
-      }
-      if (inEditor) saveEditorReturnPath();
-      go(PORTAL_BASENAME);
-    },
-  };
-
-  // The processor is additive: dropping the editor with it left a lone reader
-  // entry in builds without a portal, with no way back out of reading.
-  const surfaces: QuickNavEntry[] = [
-    reader,
-    editor,
-    ...(HAS_PORTAL && !localOnly ? [processor] : []),
-  ];
+  const surfaces: QuickNavEntry[] = [reader, editor];
 
   const within: QuickNavEntry[] = [
     ...(!host?.hasOpenFromComputer
@@ -207,10 +170,6 @@ export function QuickNavRailHost() {
               ? undefined
               : t("quickNav.signInToUse", "Sign in to use this"),
             onClick: () => {
-              if (host?.isAnonymous) {
-                requestProcessorSignup();
-                return;
-              }
               const open = host?.actions.current?.createProcessingFolder;
               if (open) open();
               else
@@ -273,11 +232,11 @@ export function QuickNavRailHost() {
   // question mark rather than competing with the apps for the top.
   const openDocs = HAS_DOCS ? () => go(DOCS_PATH) : undefined;
 
-  // The avatar is the only way into settings now, so it lands on the account
-  // section and the page's own nav carries the rest. Inside settings it is a
-  // tab switch (replace); from an app it is a navigation.
+  // The gear is the only way into settings, so it lands at the top of the
+  // preferences page. Inside settings it is a tab switch (replace); from an
+  // app it is a navigation.
   const openAccount = () => {
-    const target = `/settings/general#${ACCOUNT_ANCHOR}`;
+    const target = "/settings/general";
     if (inSettings) {
       navigate(target, { replace: true });
       return;
@@ -295,9 +254,8 @@ export function QuickNavRailHost() {
         localOnly ? within.filter((entry) => entry.id !== "automate") : within,
       ]}
       onReturnHome={() => guarded(goToStartupView)}
-      identity={host?.identity ?? null}
       onOpenAccount={openAccount}
-      // The avatar stands for the whole page, not just its own section.
+      // The settings button stands for the whole page, not one section.
       accountActive={inSettings}
       onOpenDocs={openDocs}
       docsActive={inDocs}

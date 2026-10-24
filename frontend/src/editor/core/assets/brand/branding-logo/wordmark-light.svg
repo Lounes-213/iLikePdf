@@ -1,5 +1,5 @@
-<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <text x="0" y="30" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="800" font-style="italic" letter-spacing="-1">
-    <tspan fill="#f97316">i</tspan><tspan fill="#0f0f10">Like</tspan><tspan fill="#f97316">Pdf</tspan>
+<svg width="112" height="34" viewBox="0 0 112 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="56" y="26" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="-0.9">
+    <tspan fill="#0f0f10">i</tspan><tspan fill="#f97316">Like</tspan><tspan fill="#0f0f10">Pdf</tspan>
   </text>
 </svg>

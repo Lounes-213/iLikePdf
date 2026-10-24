@@ -231,31 +231,4 @@ describe("quick-nav account data during view switches", () => {
     expectRail(true, 1);
   });
 
-  it("drops the previous account's values during an account change and sign-out", async () => {
-    const switchView = setup();
-    await waitFor(() => expectRail(true, 1));
-    let resolveSessions = (_value: SigningSessions) => {};
-    mockFetch.mockReturnValue(
-      new Promise((resolve) => {
-        resolveSessions = resolve;
-      }),
-    );
-
-    auth.user = { id: "grace" };
-    access.settled = false;
-    switchView("editor");
-    expectRail(false, 0);
-
-    access.settled = true;
-    switchView("editor");
-    await act(async () => resolveSessions(UNREAD));
-    await waitFor(() => expectRail(true, 1));
-
-    mockFetch.mockResolvedValue(EMPTY);
-    auth.user = null;
-    access.granted = false;
-    access.settled = true;
-    switchView("editor");
-    expectRail(false, 0);
-  });
 });

@@ -16,7 +16,7 @@ export const Default: Story = {
     obj: {
       Title: "Sample Document",
       Author: "Jane Doe",
-      Producer: "iLikePdf-PDF",
+      Producer: "iLikePdf",
       CreationDate: "2026-01-15",
     },
   },

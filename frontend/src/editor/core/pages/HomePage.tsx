@@ -679,17 +679,6 @@ export default function HomePage() {
           {t("quickAccess.files", "Files")}
         </span>
       </Button>
-      <Button
-        variant="tertiary"
-        className="mobile-bottom-button"
-        aria-label={t("quickAccess.config", "Config")}
-        onClick={openSettings}
-      >
-        <Icon name="settings" size="1.5rem" />
-        <span className="mobile-bottom-button-label">
-          {t("quickAccess.config", "Config")}
-        </span>
-      </Button>
     </div>
   );
 
@@ -754,6 +743,14 @@ export default function HomePage() {
                     {t("home.mobile.workspace", "Workspace")}
                   </button>
                 </div>
+                <button
+                  type="button"
+                  className="mobile-settings-button"
+                  aria-label={t("quickAccess.config", "Settings")}
+                  onClick={openSettings}
+                >
+                  <Icon name="settings" size="1.25rem" />
+                </button>
               </div>
             )}
             {isWorkspaceHub ? (

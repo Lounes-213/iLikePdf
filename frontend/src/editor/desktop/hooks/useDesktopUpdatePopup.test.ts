@@ -92,7 +92,7 @@ describe("useDesktopUpdatePopup — auto mode", () => {
     canInstallUpdatesMock.mockResolvedValue({
       canInstall: true,
       reason: null,
-      installDir: "C:/Program Files/iLikePdf-PDF",
+      installDir: "C:/Program Files/iLikePdf",
     });
     listenMock.mockResolvedValue(() => undefined);
   });

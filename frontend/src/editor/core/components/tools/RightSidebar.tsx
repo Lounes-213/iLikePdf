@@ -4,8 +4,6 @@ import { useToolWorkflow } from "@app/contexts/ToolWorkflowContext";
 import { useSidebarContext } from "@app/contexts/SidebarContext";
 import { useIsMobile } from "@app/hooks/useIsMobile";
 import ToolPanel from "@app/components/tools/ToolPanel";
-import { usePoliciesEnabled } from "@app/components/policies/usePoliciesEnabled";
-import { EditorPipelinesPanel } from "@app/components/policies/EditorPipelinesPanel";
 import { ToolIcon } from "@app/components/shared/ToolIcon";
 import { ToolPanelHeader } from "@app/components/shared/ToolPanelHeader";
 import { ActionIcon } from "@app/ui/ActionIcon";
@@ -30,7 +28,6 @@ export default function RightSidebar() {
   const { sidebarRefs } = useSidebarContext();
   const { toolPanelRef, quickAccessRef } = sidebarRefs;
   const isMobile = useIsMobile();
-  const policiesEnabled = usePoliciesEnabled();
 
   const {
     leftPanelView,
@@ -113,7 +110,6 @@ export default function RightSidebar() {
           }}
         >
           <>
-            {policiesEnabled && <EditorPipelinesPanel />}
             {activeTool ? (
               <ToolPanelHeader
                 icon={

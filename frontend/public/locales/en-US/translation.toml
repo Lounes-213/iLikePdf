@@ -4211,6 +4211,7 @@ posthog = "PostHog Analytics"
 scarf = "Scarf Pixel"
 
 [createPortfolio]
+tags = "create,make,build,combine,portfolio,PDF portfolio,package"
 coverTitle = "Cover page title"
 coverTitlePlaceholder = "PDF Portfolio"
 description = "Every selected file is kept whole inside the new PDF, whatever its type. Readers that don't support portfolios show a cover page with the files attached."
@@ -11193,10 +11194,11 @@ label = "SMTP Username"
 [quickAccess]
 allTools = "Tools"
 automate = "Automate"
-config = "Config"
+config = "Settings"
 files = "Files"
 
 [quickNav]
+settings = "Settings"
 account = "Account"
 docs = "Documentation"
 editor = "Editor"
@@ -11909,6 +11911,12 @@ apiKeysDescription = "Personal keys for calling the iLikePdf API from scripts an
 title = "Developer"
 
 [settings.general]
+compactMode = "Compact navigation"
+compactModeDescription = "Use a narrower rail and tighter spacing to leave more room for documents."
+reduceMotion = "Reduce motion"
+reduceMotionDescription = "Turn off animations and sliding transitions across the app."
+toolDescriptions = "Show tool descriptions"
+toolDescriptionsDescription = "Show a one-line explanation under each tool in the fullscreen tool picker."
 autoUnzip = "Auto-unzip API responses"
 autoUnzipFileLimit = "Auto-unzip file limit"
 autoUnzipFileLimitTooltip = "Only unzip if the ZIP contains this many files or fewer. Set higher to extract larger ZIPs."
@@ -12134,7 +12142,7 @@ title = "Legal & privacy"
 
 [settings.preferences]
 appearance = "Appearance"
-description = "How the editor looks and behaves for you, and your account."
+description = "How the editor looks and behaves for you."
 downloads = "Downloads"
 editorDefaults = "Editor defaults"
 title = "Preferences"

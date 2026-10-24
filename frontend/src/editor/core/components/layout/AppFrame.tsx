@@ -4,7 +4,6 @@ import { LoadingFallback } from "@app/components/shared/LoadingFallback";
 import { QuickNavHostProvider } from "@app/contexts/QuickNavHostContext";
 import { QuickNavRailHost } from "@app/components/shared/quickNav/QuickNavRailHost";
 import { TitleBarChrome } from "@app/components/layout/TitleBarChrome";
-import { AccountDialog } from "@app/components/account/AccountDialog";
 import "@app/components/layout/AppFrame.css";
 
 /** The rail renders once outside both apps; Suspense sits inside it, not above. */
@@ -19,7 +18,6 @@ export function AppFrame() {
               <Outlet />
             </Suspense>
           </div>
-          <AccountDialog />
         </div>
       </TitleBarChrome>
     </QuickNavHostProvider>

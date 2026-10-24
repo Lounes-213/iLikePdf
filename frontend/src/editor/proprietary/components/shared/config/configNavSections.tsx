@@ -38,11 +38,8 @@ const AdminLegalPrivacyPage = lazy(
 const AdminAiSection = lazy(
   () => import("@app/components/shared/config/configSections/AdminAiSection"),
 );
-import AccountCards from "@core/components/shared/config/configSections/preferences/AccountCards";
-import { GoogleAccountCard } from "@app/components/account/GoogleAccountCard";
 import AdminAuditSection from "@app/components/shared/config/configSections/AdminAuditSection";
 import AdminUsageSection from "@app/components/shared/config/configSections/AdminUsageSection";
-import ApiKeys from "@app/components/shared/config/configSections/ApiKeys";
 
 /**
  * Self-hosted settings, grouped by who reaches for them and what they do there:
@@ -72,26 +69,8 @@ export const useConfigNavSections = (
   // Core owns the page; the flavor supplies what core has no concept of.
   const sections = extendPreferences(
     coreSections.filter((s) => s.id !== "about"),
-    { accountSlot: loginEnabled ? <><GoogleAccountCard /><AccountCards /></> : <GoogleAccountCard /> },
+    {},
   );
-
-  const preferences = sections.find((s) => s.id === "preferences");
-  if (preferences) {
-    // Keys belong to you, not to the server, so they sit with your own
-    // settings rather than alone under a heading of their own.
-    if (loginEnabled) {
-      preferences.items.push({
-        key: "api-keys",
-        label: t("settings.developer.apiKeys", "API Keys"),
-        description: t(
-          "settings.developer.apiKeysDescription",
-          "Personal keys for calling the iLikePdf API from scripts and integrations.",
-        ),
-        icon: "key",
-        component: <ApiKeys />,
-      });
-    }
-  }
 
   const showAdmin = isAdmin || (!loginEnabled && showSettingsWhenNoLogin);
   const requiresLogin = !loginEnabled;

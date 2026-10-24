@@ -20,6 +20,7 @@ export function EditorDefaultsCard() {
   const viewerZoomLabelId = `${labelIds}-viewer-zoom`;
   const hideToolsLabelId = `${labelIds}-hide-tools`;
   const hideConversionsLabelId = `${labelIds}-hide-conversions`;
+  const descriptionsLabelId = `${labelIds}-tool-descriptions`;
   const { preferences, updatePreference } = usePreferences();
 
   return (
@@ -222,6 +223,37 @@ export function EditorDefaultsCard() {
             onChange={(event) =>
               updatePreference(
                 "hideUnavailableConversions",
+                event.currentTarget.checked,
+              )
+            }
+          />
+        </div>
+        <div
+          id="setting-tool-descriptions"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <Text id={descriptionsLabelId} fw={500} size="sm">
+              {t("settings.general.toolDescriptions", "Show tool descriptions")}{" "}
+              <InfoTooltip
+                label={t(
+                  "settings.general.toolDescriptionsDescription",
+                  "Show a one-line explanation under each tool in the fullscreen tool picker.",
+                )}
+              />
+            </Text>
+          </div>
+          <Switch
+            aria-labelledby={descriptionsLabelId}
+            checked={preferences.showLegacyToolDescriptions}
+            onChange={(event) =>
+              updatePreference(
+                "showLegacyToolDescriptions",
                 event.currentTarget.checked,
               )
             }

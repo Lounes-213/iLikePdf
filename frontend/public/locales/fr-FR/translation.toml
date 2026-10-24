@@ -11181,7 +11181,7 @@ label = "Nom d’utilisateur SMTP"
 [quickAccess]
 allTools = "Outils"
 automate = "Auto"
-config = "Config"
+config = "Paramètres"
 files = "Fichiers"
 
 [quickNav]
@@ -11897,6 +11897,12 @@ apiKeysDescription = "Clés personnelles pour appeler l’API iLikePdf depuis de
 title = "Développeur"
 
 [settings.general]
+compactMode = "Navigation compacte"
+compactModeDescription = "Utiliser une barre plus étroite et des espacements réduits pour laisser plus de place aux documents."
+reduceMotion = "Réduire les animations"
+reduceMotionDescription = "Désactiver les animations et les transitions dans toute l’application."
+toolDescriptions = "Afficher les descriptions des outils"
+toolDescriptionsDescription = "Afficher une courte explication sous chaque outil dans le sélecteur plein écran."
 autoUnzip = "Décompression automatique des réponses API"
 autoUnzipFileLimit = "Limite pour la décompression automatique"
 autoUnzipFileLimitTooltip = "Ne décompressez que si le ZIP contient ce nombre de fichiers ou moins. Définissez une valeur plus élevée pour extraire des ZIP plus volumineux."
@@ -12122,7 +12128,7 @@ title = "Juridique et confidentialité"
 
 [settings.preferences]
 appearance = "Apparence"
-description = "L’apparence et le comportement de l’éditeur pour vous, ainsi que votre compte."
+description = "L’apparence et le comportement de l’éditeur pour vous."
 downloads = "Téléchargements"
 editorDefaults = "Paramètres par défaut de l’éditeur"
 title = "Préférences"

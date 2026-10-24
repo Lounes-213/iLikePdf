@@ -1,24 +1,22 @@
-/**
- * Loading fallback component for i18next suspense
- */
+import { Logo } from "@app/ui/Logo";
+import "@app/components/shared/LoadingFallback.css";
+
+/** Branded splash shown while the first route chunk and translations load. */
 export function LoadingFallback() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        fontSize: "18px",
-        // Use our own tokens, not --mantine-color-*: this splash renders inside
-        // Suspense before MantineProvider sets its scheme, so --mantine-color-body
-        // is still Mantine's light default (white flash in dark mode). --c-bg/
-        // --c-text come from the pre-paint attributes on <html>, so they're right.
-        backgroundColor: "var(--c-bg)",
-        color: "var(--c-text)",
-      }}
-    >
-      Loading...
+    <div className="loading-splash" role="status" aria-live="polite">
+      <Logo
+        orientation="vertical"
+        iconHeight="4.25rem"
+        textHeight="1.55rem"
+        gap="0.9rem"
+      />
+      <span className="loading-splash__dots" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </span>
+      <span className="loading-splash__label">Loading</span>
     </div>
   );
 }

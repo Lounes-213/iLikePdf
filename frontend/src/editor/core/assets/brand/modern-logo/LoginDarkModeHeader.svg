@@ -4,7 +4,5 @@
     <path d="M20.4 4.8 27 11.4v.6h-6.6V4.8Z" fill="#fff"/>
     <path d="M20.4 12h6.6l-6.6 5.2V12Z" fill="rgba(0,0,0,0.12)"/>
   </g>
-  <text x="93" y="112" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="800" font-style="italic" letter-spacing="-1">
-    <tspan fill="#f97316">i</tspan><tspan fill="#fafafa">Like</tspan><tspan fill="#f97316">Pdf</tspan>
-  </text>
+  <text x="93" y="112" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-0.8"><tspan fill="#fafafa">i</tspan><tspan fill="#f97316">Like</tspan><tspan fill="#fafafa">Pdf</tspan></text>
 </svg>

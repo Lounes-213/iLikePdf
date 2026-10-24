@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import {
   preferencesService,
   UserPreferences,
@@ -50,6 +56,14 @@ export const PreferencesProvider: React.FC<{
     },
     [],
   );
+
+  // Display-only preferences become root attributes so plain CSS can react to
+  // them without every component subscribing to the context.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.toggleAttribute("data-reduce-motion", preferences.reduceMotion);
+    root.toggleAttribute("data-compact", preferences.compactMode);
+  }, [preferences.reduceMotion, preferences.compactMode]);
 
   return (
     <PreferencesContext.Provider

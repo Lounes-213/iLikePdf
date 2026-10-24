@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-  <strong>A private, self-hostable PDF workspace.</strong><br>
-  Edit, convert, sign, redact and automate PDFs without sending your documents to a third party.
+  <strong>A 100% Free, Private, and Self-Hostable PDF Workspace.</strong><br>
+  Edit, convert, split, merge, compress, sign, redact, and automate PDFs without login, tracking, or paywalls.
 </p>
 
 <p align="center">
@@ -14,115 +14,124 @@
   <a href="https://github.com/Lounes-213/iLikePdf"><img alt="GitHub" src="https://img.shields.io/github/stars/Lounes-213/iLikePdf?style=social"></a>
 </p>
 
-iLikePdf is a complete PDF workstation: a React + TypeScript front end, a Spring Boot engine, and an optional Cloudflare Worker that adds Google sign-in, a token balance and card/PayPal top-ups. It runs entirely on your machine or your own server, so files never leave infrastructure you control.
+**iLikePdf** is a lightweight, privacy-focused alternative to web PDF suites like iLovePDF. It combines a modern **React + Vite** frontend with a robust **Spring Boot** processing engine.
+
+All tools are **unlimited and free**—no sign-in required, no accounts, no token limits, and no external tracking.
 
 ---
 
-## Highlights
+## Key Features
 
-- **50+ tools** — merge, split, rotate, compress, OCR, redact, watermark, sign, compare, convert to and from Office, images, HTML and more.
-- **Private by default** — the backend is stateless; processing happens in memory or temporary storage on your own host.
-- **Desktop-class file handling** — upload a PDF once and chain tools without re-uploading; the browser keeps files in IndexedDB with memory-safe cleanup.
-- **Automation** — build no-code pipelines and call the REST API for every tool.
-- **Your interface, your language** — 40+ locales, full dark/light theming, orange brand identity.
-- **Accounts and tokens (optional)** — Google sign-in, a shared token ledger in Cloudflare D1, and top-ups through Stripe or PayPal.
+- **50+ PDF Tools** — Merge, split, rotate, compress, OCR, sign, redact, watermark, and convert between PDF, Office, images, HTML, and more.
+- **Zero Login & No Accounts** — Instant access to every single tool. No passwords, no sign-ups, and no paywalls.
+- **100% Private** — Documents are processed in-memory or on your own self-hosted infrastructure. Files never leave your control.
+- **Client-Side File Management** — Upload documents once and chain tools seamlessly using IndexedDB caching.
+- **Multi-Language Support** — 40+ languages with full light and dark mode.
+- **Deploy Anywhere** — Run locally, host on Docker, or deploy the web interface to Cloudflare Workers / Pages with a secure backend tunnel.
 
-## Live demo
+---
 
-| Surface | URL |
-| --- | --- |
-| App | https://ilikepdf-app.ilikepdf.workers.dev |
-| Landing page | https://ilikepdf-site.ilikepdf.workers.dev |
+## Live Deployments
 
-The app is served from Cloudflare Workers static assets and calls a Spring Boot backend through a Cloudflare tunnel while that machine is running. Rebuild the front end (`VITE_API_BASE_URL=<backend>`) and redeploy `cloudflare/app-worker` when the backend URL changes.
+| Surface | Deployment | Description |
+| --- | --- | --- |
+| **App** | [https://ilikepdf-app.ilikepdf.workers.dev](https://ilikepdf-app.ilikepdf.workers.dev) | The full interactive PDF web app |
+| **Landing Site** | [https://ilikepdf-site.ilikepdf.workers.dev](https://ilikepdf-site.ilikepdf.workers.dev) | Static introduction and feature page |
 
-## Quick start
+---
 
-Requirements: **JDK 25** (Gradle downloads it automatically) and Node.js 20+.
+## Quick Start (Local Development)
+
+### Prerequisites
+
+- **JDK 25** (Gradle handles download if needed)
+- **Node.js 20+** and `npm`
+
+### 1. Run the Backend
 
 ```bash
-# Backend — http://localhost:8080
+# Starts Spring Boot on http://localhost:8080
 ./gradlew :stirling-pdf:bootRun
+```
 
-# Frontend — http://localhost:5173 (proxies /api to the backend)
+### 2. Run the Frontend
+
+```bash
 cd frontend
 npm install
-npx vite --mode proprietary
+npx vite
 ```
 
-Or use the task runner:
+Open [http://localhost:5173](http://localhost:5173). The frontend automatically proxies `/api` calls to the local backend at `http://localhost:8080`.
+
+---
+
+## Deploying to Cloudflare & GitHub
+
+### 1. Push to GitHub
 
 ```bash
-task dev          # backend + frontend
-task test         # backend + frontend + engine
-task check        # lint, typecheck, tests
+git add .
+git commit -m "Update iLikePdf: remove login and D1, clean standalone app"
+git push origin main
 ```
 
-Open <http://localhost:5173>. Login is off by default; every tool works without an account.
+Repository: [https://github.com/Lounes-213/iLikePdf](https://github.com/Lounes-213/iLikePdf)
 
-## Accounts, tokens and payments
+### 2. Deploy Web App to Cloudflare
 
-Accounts are optional and live in `cloudflare/auth-worker` (Workers + D1). When `VITE_AUTH_WORKER_URL` is set, the app asks for a Google session and charges tokens per run:
-
-| Action | Cost |
-| --- | --- |
-| PDF tool run | 1 token |
-| AI-assisted run | 5 tokens |
-| New account | 50 free tokens |
-
-Token packs and prices live in `cloudflare/auth-worker/src/index.ts`; the ledger, session handling, Stripe Checkout and PayPal Orders v2 capture all run in the Worker. See [`cloudflare/auth-worker/README.md`](cloudflare/auth-worker/README.md) for deployment.
-
-Without the Worker URL the app stays fully offline: no sign-in, no metering, no external calls.
-
-The static landing page in `site/` can also deploy to Cloudflare Pages:
+The web application frontend can be built and deployed directly to Cloudflare Workers Static Assets or Cloudflare Pages:
 
 ```bash
-npx wrangler pages deploy site --project-name ilikepdf
+# Build frontend
+cd frontend
+npm run build
+
+# Deploy via Cloudflare Worker Static Assets
+cd ../cloudflare/app-worker
+npx wrangler deploy
 ```
 
-## Architecture
+*(Alternatively, via Cloudflare Pages: `npx wrangler pages deploy frontend/dist --project-name ilikepdf-app`)*
 
-| Layer | Stack | Location |
-| --- | --- | --- |
-| Web app | React, TypeScript, Vite, Mantine, Tailwind | `frontend/` |
-| PDF engine | Spring Boot 4, PDFBox, LibreOffice, Tesseract | `app/` |
-| AI engine | FastAPI + Pydantic AI | `engine/` |
-| Accounts | Cloudflare Worker, D1, Google GIS | `cloudflare/auth-worker/` |
-| Desktop shell | Tauri (Rust) | `frontend/src-tauri/` |
+### 3. Deploy Landing Page to Cloudflare
 
-The front end talks to the Java backend through `/api/v1/*`; Vite proxies that path in development. Files are held client-side and streamed to the backend per operation.
-
-## Repository layout
-
-```
-app/            Spring Boot modules (core, common, proprietary, saas, desktop)
-frontend/       React editor, tool registry, i18n, icons and brand assets
-cloudflare/     Google auth + token ledger + payments Worker (D1 schema included)
-engine/         Optional Python reasoning service
-docs/           Developer, security and API documentation
-site/           Static landing page deployed to Cloudflare Pages
+```bash
+cd cloudflare/site-worker
+npx wrangler deploy
 ```
 
-## Development
+*(Or via Cloudflare Pages: `npx wrangler pages deploy site --project-name ilikepdf-site`)*
 
-- `task --list` shows every command.
-- `task backend:check`, `task frontend:check`, `task engine:check` are the quality gates.
-- `task format` applies Google Java Format, Prettier and Ruff.
-- Translations live in `frontend/public/locales/`; update `en-US` only.
+### 4. Connect Cloudflare to your Backend
 
-Read [`AGENTS.md`](AGENTS.md) and the [`Developer Guide`](docs/developer/DeveloperGuide.md) before larger changes.
+For remote deployments, expose your self-hosted Spring Boot backend securely to your Cloudflare frontend using **Cloudflare Tunnel** (`cloudflared`):
 
-## Security
+```bash
+# Install cloudflared and route backend port 8080 to your domain
+cloudflared tunnel run <tunnel-name>
+```
 
-- No analytics, telemetry or update pings are enabled.
-- The backend is stateless and processes documents in memory or temp storage.
-- Worker secrets (Google client ID, Stripe/PayPal keys, session signing key) stay in Cloudflare, never in the repo.
-- Sessions are signed JWTs stored in `localStorage`; deploy the Worker on HTTPS and keep the client bundle trusted.
+Then configure `VITE_API_BASE_URL` in `frontend/.env.local` to point to your secure backend URL and rebuild.
 
-Report issues privately by opening a security advisory on GitHub.
+---
+
+## Architecture Overview
+
+```
+├── app/                  # Spring Boot PDF processing engine (PDFBox, LibreOffice, OCR)
+├── frontend/             # React + Vite web application (Editor, UI, Tools, i18n)
+├── cloudflare/
+│   ├── app-worker/       # Cloudflare Worker serving the frontend web app
+│   └── site-worker/      # Cloudflare Worker serving the static landing page
+├── engine/               # Optional Python reasoning service
+└── site/                 # Static marketing and landing page
+```
+
+---
 
 ## License
 
-MIT — see [`LICENSE`](LICENSE).
+This project is licensed under the **MIT License** — see [`LICENSE`](LICENSE) for details.
 
-iLikePdf is derived from the open-source Stirling PDF project and keeps its MIT license and attribution. Branding, name and UI are original to this fork.
+iLikePdf is derived from Stirling-PDF with independent UI branding, streamlined architecture, and full removal of account / token gates.

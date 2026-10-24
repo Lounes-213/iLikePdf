@@ -35,6 +35,8 @@ export interface UserPreferences {
   hideUnavailableTools: boolean;
   hideUnavailableConversions: boolean;
   pdfRenderMode: PdfRenderMode;
+  reduceMotion: boolean;
+  compactMode: boolean;
 }
 
 export const DEFAULT_PREFERENCES: UserPreferences = {
@@ -53,6 +55,8 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   hideUnavailableTools: false,
   hideUnavailableConversions: false,
   pdfRenderMode: "normal",
+  reduceMotion: false,
+  compactMode: false,
 };
 
 const STORAGE_KEY = "ilikepdf_preferences";

@@ -323,3 +323,6 @@ frontend/src-tauri/libs/.variant
 # wrangler local state
 .wrangler/
 
+
+.freebuff/
+
