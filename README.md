@@ -36,7 +36,8 @@ All tools are **unlimited and free**—no sign-in required, no accounts, no toke
 | Surface | Deployment | Description |
 | --- | --- | --- |
 | **App** | [https://ilikepdf-app.ilikepdf.workers.dev](https://ilikepdf-app.ilikepdf.workers.dev) | The full interactive PDF web app |
-| **Landing Site** | [https://ilikepdf-site.ilikepdf.workers.dev](https://ilikepdf-site.ilikepdf.workers.dev) | Static introduction and feature page |
+| **Landing Site (Cloudflare)** | [https://ilikepdf-site.ilikepdf.workers.dev](https://ilikepdf-site.ilikepdf.workers.dev) | Static introduction and feature page |
+| **Landing Site (GitHub Pages)** | [https://lounes-213.github.io/iLikePdf/](https://lounes-213.github.io/iLikePdf/) | Static introduction deployed via GitHub Pages |
 
 ---
 
